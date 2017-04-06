@@ -18,7 +18,7 @@ var dailyAPI = {
             }
         })
     },
-    getAticles: function (req, res) {
+    getArticle: function (req, res) {
         var $ = jQuery;
         var articleId = req.params.id;
         if(articleId) {

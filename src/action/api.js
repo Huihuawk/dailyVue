@@ -1,9 +1,9 @@
 var request = require('request');
 var jade = require('jade');
-var jQuery = require('jQuery');
+var $ = require('cheerio');
 
 var dailyAPI = {
-    getStart : function(req, res){
+    getLatest : function(req, res){
         // 最新内容
         // http://news-at.zhihu.com/api/4/news/latest
         request('http://news-at.zhihu.com/api/4/news/latest', function (err, response, body) {
@@ -18,8 +18,8 @@ var dailyAPI = {
             }
         })
     },
+    //文章详情
     getArticle: function (req, res) {
-        var $ = jQuery;
         var articleId = req.params.id;
         if(articleId) {
             var url = 'http://news-at.zhihu.com/api/4/news/' + articleId;
@@ -27,9 +27,18 @@ var dailyAPI = {
                 if(!err){
                     var article = JSON.parse(body);
                     var content = window.$(article.body);
-                    console.log(content)
+                    res.render('article', { 'title': article.title});
                 }
             })
+        }else {
+
+        }
+    },
+    // 历史内容
+    getHistory: function (req, res) {
+        var date = req.params.date;
+        if(date){
+            var url = 'http://news.at.zhihu.com/api/4/news/before/' + date;
         }else {
 
         }

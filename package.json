@@ -6,14 +6,16 @@
     "start": "node ./bin/zh"
   },
   "dependencies": {
-    "request": "~2.53.0",
-    "cheerio": "~0.19.0",
     "body-parser": "~1.17.1",
+    "cheerio": "^0.19.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
+    "es6-promise": "^4.1.0",
     "express": "~4.15.2",
     "jade": "~1.11.0",
+    "mongoose": "^4.9.3",
     "morgan": "~1.8.1",
+    "request": "~2.53.0",
     "serve-favicon": "~2.4.2"
   },
   "devDependencies": {

@@ -1,15 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-var dailyAPI = require('./../src/api/index');
+var home = require('./../controller/home')
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
 //   res.render('index', { title: 'Express' });
 // });
 
-router.get('/', dailyAPI.getLatest);
-router.get('/index', dailyAPI.getLatest);
-router.get('/article/:id', dailyAPI.getArticle);
+router.get('/', home.getLatest);
+router.get('/index', home.getLatest);
 
 module.exports = router;

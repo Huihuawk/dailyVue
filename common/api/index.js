@@ -14,15 +14,16 @@ var data = {
 
     //startPic
     getStartPic: function () {
-        var url = API.startPic;
+        var url = API.latest;
         return new Promise(function (resolve, reject) {
             request(url, function (err, response, body) {
                 var pic = null;
                 if(!err){
-                    pic = JSON.parse(body);
-                    pic.img = 'http://gtms03.alicdn.com/tps/i3/TB117YzHpXXXXXLXXXXWZMJJXXX-720-1280.jpg';
+                    var latest = JSON.parse(body);
+                    resolve(latest);
+                }else {
+                    return reject(err);
                 }
-                resolve(pic);
             })
         })
     },
@@ -34,8 +35,10 @@ var data = {
                 var latest = null;
                 if(!err){
                     latest = JSON.parse(body);
+                    resolve(latest);
+                }else {
+                    return reject(err)
                 }
-                resolve(latest);
             })
         })
     },

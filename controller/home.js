@@ -4,6 +4,9 @@ var $ = require('cheerio');
 var dlAPI = require('../common/api/index');
 
 var Home = {
+    index: function(req, res){
+        res.render('index');
+    },
     //最新内容
     getLatest: function (req, res) {
         Promise.all([dlAPI.getStartPic(),dlAPI.getLatest()]).then(function (result) {

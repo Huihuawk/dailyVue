@@ -10,6 +10,7 @@ var Home = {
     //最新内容
     getLatest: function (req, res) {
         Promise.all([dlAPI.getStartPic(),dlAPI.getLatest()]).then(function (result) {
+            console.log(result);
             var pic = result[0];
             var latest = result[1];
             res.render('index',{'title':'Daily', 'pic':pic, 'latest': latest.stories});

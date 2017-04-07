@@ -6,7 +6,7 @@ var HistoryScheme = new Schema({
     id: String,
     title: String,
     image: String,
-    dtime: Date
+    dtime: String
 });
 
 var HistoryDAO = function () {

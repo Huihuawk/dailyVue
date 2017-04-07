@@ -2,6 +2,7 @@
 
 var request = require('request');
 var Promise = require('es6-promise').Promise;
+var config = require('../../config');
 
 var API = {
     'startPic'  : 'http://news-at.zhihu.com/api/4/start-image/720*1184',
@@ -31,7 +32,11 @@ var data = {
     getLatest: function () {
         var url = API.latest;
         return new Promise(function (resolve, reject) {
-            request(url, function (err, response, body) {
+            request({
+                method: 'GET',
+                uri: url,
+                headers: {'Authorization': config.auth }
+            }, function (err, response, body) {
                 var latest = null;
                 if(!err){
                     latest = JSON.parse(body);
@@ -57,18 +62,25 @@ var data = {
         }
     },
     //历史内容
-    getHistory: function (date, callback) {
-        if(date){
-            var url = API.history + date;
-            request(url, function (err, response, body) {
-                if(!err){
-                    var history = JSON.parse(body);
-                    callback(history.stories);
-                }else {
-                    return null;
-                }
-            })
-        }
+    getHistory: function (date) {
+        return new Promise(function (resolve, reject) {
+            if(date){
+                var url = API.history + date;
+                request({
+                    method: 'GET',
+                    uri: url,
+                    headers: {'Authorization': config.auth }
+                }, function (err, response, body) {
+                    var history = null;
+                    if(!err){
+                        history = JSON.parse(body);
+                    }
+                    resolve(history);
+                })
+            }else {
+                resolve(null);
+            }
+        })
     }
 }
 

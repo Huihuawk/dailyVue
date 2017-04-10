@@ -2,6 +2,7 @@ var request = require('request');
 var Promise = require('es6-promise').Promise;
 var $ = require('cheerio');
 var dlAPI = require('../common/api/index');
+var HistoryDAO = require('../common/db/models/history');
 
 var Home = {
     index: function(req, res){
@@ -31,6 +32,13 @@ var Home = {
         }else {
 
         }
+    },
+    list: function (req, res) {
+        var historyDAO = new historyDAO();
+        historyDAO.list().then(function (list) {
+            console.log(list);
+            res.render('list', {'list': list});
+        })
     }
 }
 

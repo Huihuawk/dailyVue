@@ -9,9 +9,7 @@ var HistoryScheme = new Schema({
     dtime: String
 });
 
-var HistoryDAO = function () {
-
-};
+var HistoryDAO = function () {};
 
 var History = mongodb.mongoose.model('History', HistoryScheme);
 
@@ -22,6 +20,13 @@ HistoryDAO.prototype = {
             var instance = new History(obj);
             instance.save(function (err) {
                 resolve && resolve(err);
+            })
+        })
+    },
+    list: function () {
+        return new Promise(function (resolve, reject) {
+            History.find(function (err, d) {
+                resolve && resolve(d);
             })
         })
     }

@@ -10,5 +10,6 @@ var home = require('./../controller/home');
 
 router.get('/', home.getLatest);
 router.get('/index', home.getLatest);
+router.get('/list', home.list);
 
 module.exports = router;

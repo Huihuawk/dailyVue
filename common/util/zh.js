@@ -8,7 +8,7 @@ var DateCalc = require('./date');
 var dao = new ArticleDAO();
 
 var start = '20170401';
-var end = '20170310';
+var end = '20170320';
 
 var x = 1;
 var historyDAO = new HistoryDAO();
@@ -18,9 +18,7 @@ var Spider = {
         this.loopDate(start, end);
     },
     //日数据
-    day: function (date) {
-        console.log(date);
-        // return;
+    day: function (date, fn) {
         dlAPI.getHistory(date).then(function (history) {
             var date = history.date;
             var d = history.stories;
@@ -55,9 +53,10 @@ var Spider = {
             console.log('over 1');
             _self.day(date);
         }else {
-            _self.loopDate(date,end);
+            setTimeout(function () {
+                _self.loopDate(date,end);
+            }, 1000)
         }
     }
 }
 
-Spider.init(start, end);

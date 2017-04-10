@@ -10,6 +10,8 @@ block content
                 p.article
                 a(href="http://daily.zhihu.com/story/#{item.id}")
                    span #{item.title}
+            else
+                h1 NO
 
 block append footer
     script(src='/js/index.js')

@@ -7,6 +7,7 @@ var HistoryScheme = new Schema({
     title: String,
     image: String,
     dtime: String,
+    dmonth: String,
     dyear: String
 });
 

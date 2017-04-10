@@ -6,18 +6,12 @@ var HistoryDAO = require('../db/models/history')
 var dlAPI = require('../api/index');
 var DateCalc = require('./date');
 
-
-var dao = new ArticleDAO();
-
-var start = '20170401';
-var end = '20170320';
-
-var x = 1;
-var historyDAO = new HistoryDAO();
+var historyDAO = new DateCalc();
 
 var Spider = {
     init: function (start, end) {
-        this.loopDate(start, end);
+        // this.loopDate(start, end);
+        console.log(start,end);
     },
     //日数据
     day: function (date) {
@@ -40,6 +34,7 @@ var Spider = {
                     iamge: img,
                     theme: theme,
                     dtime: date,
+                    dmonth: date.substr(0,6),
                     dyear: date.substr(0,4)
                 }
                 historyDAO.save(data);
@@ -59,8 +54,40 @@ var Spider = {
                 _self.loopDate(date,end);
             }, 100)
         }
+    },
+    //爬取每日最新的数据
+    daily: function () {
+        new CronJob('00 30 23 * * *', function () {
+            if(x == 2){
+                console.log('-------Begin-------');
+                dlAPI.getLatest().then(function (latest) {
+                    var d = latest.stories,
+                        date = latest.date;
+                    console.log('-------Over Request-------');
+                    console.log(x);
+                    for(var i=0, len=d.length; i < len; i++){
+                        var img = '';
+                        if(d[i].images){
+                            img = d[i].images[0];
+                        }
+                        var data = {
+                            id: d[i].id,
+                            title: d[i].title,
+                            image: img,
+                            dtime: date,
+                            dmonth: date.substr(0,6),
+                            dyear: date.substr(0,4)
+                        }
+                        historyDAO.save(data);
+                    }
+                })
+            }
+            ++x;
+        }, function () {
+            console.log('cronjob over');
+        }, true, 'Asia/Shanghai')
     }
 }
 
-// Spider.init(start, end);
+module.exports = Spider;
 

@@ -6,7 +6,8 @@ var HistoryScheme = new Schema({
     id: String,
     title: String,
     image: String,
-    dtime: String
+    dtime: String,
+    dyear: String
 });
 
 var HistoryDAO = function () {};
@@ -26,6 +27,13 @@ HistoryDAO.prototype = {
     list: function () {
         return new Promise(function (resolve, reject) {
             History.find(function (err, d) {
+                resolve && resolve(d);
+            })
+        })
+    },
+    so: function (query) {
+        return new Promise(function (resolve, reject) {
+            History.find(query, function (err, d) {
                 resolve && resolve(d);
             })
         })

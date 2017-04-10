@@ -1,7 +1,9 @@
+var CronJob = require('cron').CronJob;
+var Promise = require('es6-promise');
+
 var ArticleDAO = require('../db/models/article');
 var HistoryDAO = require('../db/models/history')
 var dlAPI = require('../api/index');
-var CronJob = require('cron').CronJob;
 var DateCalc = require('./date');
 
 
@@ -18,7 +20,7 @@ var Spider = {
         this.loopDate(start, end);
     },
     //日数据
-    day: function (date, fn) {
+    day: function (date) {
         dlAPI.getHistory(date).then(function (history) {
             var date = history.date;
             var d = history.stories;
@@ -37,7 +39,8 @@ var Spider = {
                     title: d[i].title,
                     iamge: img,
                     theme: theme,
-                    dtime: date
+                    dtime: date,
+                    dyear: date.substr(0,4)
                 }
                 historyDAO.save(data);
             }
@@ -50,13 +53,14 @@ var Spider = {
         _self.day(date);
         date = dateCalc.before();
         if(date === end){
-            console.log('over 1');
             _self.day(date);
         }else {
             setTimeout(function () {
                 _self.loopDate(date,end);
-            }, 1000)
+            }, 100)
         }
     }
 }
+
+// Spider.init(start, end);
 

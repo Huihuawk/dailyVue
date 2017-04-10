@@ -34,10 +34,19 @@ var Home = {
         }
     },
     list: function (req, res) {
-        var historyDAO = new historyDAO();
+        var historyDAO = new HistoryDAO();
         historyDAO.list().then(function (list) {
-            console.log(list);
             res.render('list', {'list': list});
+        })
+    },
+    //搜索
+    so: function (req, res) {
+        var key = req.params.key,
+            query = {title: new RegExp(key)};
+        console.log(req.params);
+        var historyDAO = new HistoryDAO();
+        historyDAO.so(query).then(function (result) {
+            res.render('list', {'title': key + '_日报搜索', 'list': result});
         })
     }
 }

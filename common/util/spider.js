@@ -10,13 +10,19 @@ var historyDAO = new HistoryDAO();
 
 var Spider = {
     init: function (start, end) {
-        // this.loopDate(start, end);
-        console.log(start,end);
+        var dateCalc = new DateCalc(start);
+        console.log(dateCalc);
+        console.log(dateCalc.before());
+        historyDAO.count({dtime: dateCalc.before()}).then(function (d) {
+            console.log(d);
+            d == 0 && Spider.loopDate(start, end);
+        })
     },
     //日数据
     day: function (date) {
         dlAPI.getHistory(date).then(function (history) {
             var date = history.date;
+            console.log(history);
             var d = history.stories;
             for(var i = 0; i < d.length; i++){
                 var img = '';

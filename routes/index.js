@@ -15,8 +15,14 @@ router.get('/list', home.list);
 router.get('/s/:key', home.so);
 
 //date
-router.get('/d/:day', home.soDate);
-router.get('/m/:month', home.soDate);
-router.get('/y/:year', home.soDate);
+router.get('/d/:day', home.soByDate);
+router.get('/m/:month', home.soByDate);
+router.get('/y/:year', home.soByDate);
+
+router.get('/test', home.test);
+
+
+//imgProxy
+// router.get('/img', imgProxy.proxy);
 
 module.exports = router;

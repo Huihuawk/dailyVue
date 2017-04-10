@@ -48,7 +48,7 @@ var Home = {
             res.render('list', {'title': key + '_日报搜索', 'list': result});
         })
     },
-    soDate: function (req, res) {
+    soByDate: function (req, res) {
         var param = req.params,
             query = {},
             title = '';
@@ -66,8 +66,21 @@ var Home = {
         console.log('2',query);
         var historyDAO = new HistoryDAO();
         historyDAO.so(query).then(function (result) {
-            res.render('list', {'title': '日报' + title, 'list': result});
+            // res.render('list', {'title': '日报' + title, 'list': result});
+            console.log(result);
+            res.json(result);
         })
+    },
+    //test
+    test: function (req, res) {
+        var data = {
+            days: []
+        };
+        for(var i=1;i<=31;i++){
+            data.days[i] = i;
+        }
+        data.days = data.days.slice(1);
+        res.render('test', {'title': '知乎 日报','data': data});
     }
 }
 

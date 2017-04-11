@@ -106,7 +106,7 @@ var data = {
     getCmtLong: function (articleId) {
         return new Promise(function (resolve, reject) {
             if (articleId){
-                var url = API.cmtLong + articleId;
+                var url = API.cmtLong + articleId + '/long-comments';
                 request({
                     method: 'GET',
                     uri: url,
@@ -124,7 +124,7 @@ var data = {
     getCmtShort: function (articleId) {
         return new Promise(function (resolve, reject) {
             if (articleId){
-                var url = API.cmtShort + articleId;
+                var url = API.cmtShort + articleId + '/short-comments';
                 request({
                     method: 'GET',
                     uri: url,

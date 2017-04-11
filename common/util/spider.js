@@ -28,7 +28,6 @@ var Spider = {
                 d == 0 && Spider.loopDayData(start, end);
             }
         });
-        Spider.loopDayData(start, end);
     },
     //日数据
     day: function (date, callback) {
@@ -58,7 +57,7 @@ var Spider = {
                                 msg: JSON.parse(err)
                             };
                             console.log('get history error ' + data.id);
-                            logDAO.save(error);
+                            logDAO.save(log);
                         } else {
                             return Promise.resolve(data.id);
                         }
@@ -104,7 +103,7 @@ var Spider = {
                             msg: JSON.parse(err)
                         };
                         console.log('article save  error ' + data.id);
-                        return logDAO.save(error);
+                        return logDAO.save(log);
                     } else {
                         return Promise.resolve(data.id);
                     }
@@ -123,7 +122,7 @@ var Spider = {
                         msg: JSON.parse(err)
                     };
                     console.log('get history error ' + data.id);
-                    logDAO.save(error);
+                    logDAO.save(log);
                 } else {
                     return Promise.resolve(data.id);
                 }
@@ -148,7 +147,7 @@ var Spider = {
                             msg: JSON.parse(err)
                         };
                         console.log('comments count error ' + data.id);
-                        logDAO.save(error);
+                        logDAO.save(log);
                     } else {
                         return Promise.resolve(data.id);
                     }
@@ -157,9 +156,10 @@ var Spider = {
     },
     //长评论
     cmtLong: function (aid) {
-        return dlAPI.getCmtLong(aid).then(function (article) {
+        return dlAPI.getCmtLong(aid).then(function (cmts) {
+            console.log("========================",cmts);
             var data = {
-                aid: article.id,
+                aid: aid,
                 comments: cmts.comments,
                 type: 1
             };
@@ -173,7 +173,7 @@ var Spider = {
                             msg: JSON.parse(err)
                         };
                         console.log('long comments  error ' + data.id);
-                        return logDAO.save(error);
+                        return logDAO.save(log);
                     } else {
                         return Promise.resolve(data.id);
                     }

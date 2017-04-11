@@ -21,10 +21,13 @@ var Spider = {
     init: function (start, end) {
         start = new DateCalc(start).after();
         end = new DateCalc(end).after();
-        var dateCalc = new DateCalc(start);
-        // historyDAO.count({dtime: dateCalc.before()}).then(function (d) {
-        //     d == 0 && Spider.loopDayData(start, end);
-        // });
+        historyDAO.count({dtime: start}).then(function (d) {
+            if (start == end){
+                d == 0 && Spider.day(start);
+            } else {
+                d == 0 && Spider.loopDayData(start, end);
+            }
+        });
         Spider.loopDayData(start, end);
     },
     //日数据
@@ -66,14 +69,14 @@ var Spider = {
                     }).then(function (aid) {
                         return Spider.cmtCount(aid);
                     }).catch(function (e) {
-                        console.error('day history data error id:' + data.id, e);
+                        console.log('day history data error id:' + data.id, e);
                     });
                 promiseAll.push(p);
             }
             Promise.all(promiseAll).then(function (err) {
                 callback && callback();
             }).catch(function (error) {
-                console.error('get day data error: ', error)
+                console.log('get day data error: ', error)
             })
         })
     },

@@ -8,7 +8,7 @@ var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise');
 
 var CmtCountSchema = new Schema({
-    id: String,
+    aid: String,
     longComments: Number,
     shortComments: Number,
     popularity: Number,

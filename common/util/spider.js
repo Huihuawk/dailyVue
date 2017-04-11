@@ -6,6 +6,7 @@ var config = require('../../config');
 var ArticleDAO = require('../db/models/article');
 var HistoryDAO = require('../db/models/history');
 var CmtCountDAO = require('../db/models/cmtCount');
+var CommentsDAO = require('../db/models/comments');
 var LogDAO = require('../db/models/log');
 var dlAPI = require('../api/index');
 var DateCalc = require('./date');
@@ -13,16 +14,18 @@ var DateCalc = require('./date');
 var historyDAO = new HistoryDAO(),
     cmtCountDAO = new CmtCountDAO(),
     articleDAO = new ArticleDAO(),
+    commentsDAO = new CommentsDAO(),
     logDAO = new LogDAO();
 
 var Spider = {
     init: function (start, end) {
         start = new DateCalc(start).after();
         end = new DateCalc(end).after();
-        const dateCalc = new DateCalc(start);
-        historyDAO.count({dtime: dateCalc.before()}).then(function (d) {
-            d == 0 && Spider.loopDayData(start, end);
-        })
+        var dateCalc = new DateCalc(start);
+        // historyDAO.count({dtime: dateCalc.before()}).then(function (d) {
+        //     d == 0 && Spider.loopDayData(start, end);
+        // });
+        Spider.loopDayData(start, end);
     },
     //日数据
     day: function (date, callback) {
@@ -41,7 +44,7 @@ var Spider = {
                     dmonth: date.substr(0, 6),
                     dyear: date.substr(0, 4)
                 };
-                var p = historyDAO.save(data)
+                var p = Spider.history(data)
                     .then(function (err) {
                         if (err) {
                             //写入存储的log
@@ -57,20 +60,26 @@ var Spider = {
                             return Promise.resolve(data.id);
                         }
                     }).then(function (aid) {
-                        return Spider.article(aid);
+                        return Spider.cmtLong(aid);
                     }).then(function (aid) {
-
+                        return Spider.cmtShort(aid);
+                    }).then(function (aid) {
+                        return Spider.cmtCount(aid);
+                    }).catch(function (e) {
+                        console.error('day history data error id:' + data.id, e);
                     });
                 promiseAll.push(p);
             }
             Promise.all(promiseAll).then(function (err) {
-                callback();
+                callback && callback();
+            }).catch(function (error) {
+                console.error('get day data error: ', error)
             })
         })
     },
     //正文
     article: function (aid) {
-        dlAPI.getArticle(aid).then(function (article) {
+        return dlAPI.getArticle(aid).then(function (article) {
             var data = {
                 id: article.id,
                 title: article.title,
@@ -80,8 +89,8 @@ var Spider = {
                 js: article.js,
                 imageSource: article.image_source,
                 shareUrl: article.share_url
-            }
-            articleDAO.save(data)
+            };
+            return articleDAO.save(data)
                 .then(function (err) {
                     if (err) {
                         //写入存储的log
@@ -99,42 +108,93 @@ var Spider = {
                 })
         })
     },
+    //提出保存历史数据function
+    history: function (data) {
+        return historyDAO.save(data)
+            .then(function (err) {
+                if (err) {
+                    let log = {
+                        id: data.id,
+                        err: config.spider.errHistory,
+                        date: date,
+                        msg: JSON.parse(err)
+                    };
+                    console.log('get history error ' + data.id);
+                    logDAO.save(error);
+                } else {
+                    return Promise.resolve(data.id);
+                }
+            })
+    },
     //评论，点赞
-    cmtCount: function (articleId) {
-        dlAPI.getCmtcount(articleId).then(function (count) {
+    cmtCount: function (aid) {
+        return dlAPI.getCmtcount(aid).then(function (count) {
             var data = {
-                id: articleId,
+                id: aid,
                 longComments: count.longComments ? count.longComments : 0,
                 shortComments: count.shortComments ? count.shortComments : 0,
-                popularity: count.popularity ? count.popularity : 0,
                 comments: count.comments ? count.comments : 0
             }
-            cmtCountDAO.save(data);
-        })
-    },
-    //长评论
-    cmtLong: function (aid) {
-        dlAPI.getCmtLong(aid).then(function (article) {
-            var data = {
-                id: article.id,
-                title: article.title,
-                body: article.body,
-                image: article.image,
-                css: article.css,
-                js: article.js,
-                imageSource: article.image_source,
-                shareUrl: article.share_url
-            };
-            articleDAO.save(data)
+            return cmtCountDAO.save(data)
                 .then(function (err) {
                     if (err) {
                         let log = {
                             id: data.id,
-                            err: config.spider.errArticle,
+                            err: config.spider.errComments,
+                            date: date,
+                            msg: JSON.parse(err)
+                        };
+                        console.log('comments count error ' + data.id);
+                        logDAO.save(error);
+                    } else {
+                        return Promise.resolve(data.id);
+                    }
+                })
+        })
+    },
+    //长评论
+    cmtLong: function (aid) {
+        return dlAPI.getCmtLong(aid).then(function (article) {
+            var data = {
+                aid: article.id,
+                comments: cmts.comments,
+                type: 1
+            };
+            return commentsDAO.save(data)
+                .then(function (err) {
+                    if (err) {
+                        let log = {
+                            id: data.id,
+                            err: config.spider.errComments,
                             date: '',
                             msg: JSON.parse(err)
                         };
-                        console.log('article save  error ' + data.id);
+                        console.log('long comments  error ' + data.id);
+                        return logDAO.save(error);
+                    } else {
+                        return Promise.resolve(data.id);
+                    }
+                })
+        })
+    },
+    //短评论
+    cmtShort: function (aid) {
+        return dlAPI.getCmtShort(aid).then(function (article) {
+            var data = {
+                aid: article.id,
+                comments: cmts.comments,
+                type: 0
+            };
+            return commentsDAO.save(data)
+                .then(function (err) {
+                    if (err) {
+                        let log = {
+                            id: data.id,
+                            err: config.spider.errComments,
+                            date: '',
+                            msg: JSON.parse(err)
+                        };
+                        console.log('short comments  error ' + data.id);
                         return logDAO.save(error);
                     } else {
                         return Promise.resolve(data.id);

@@ -4,6 +4,8 @@ block append head
   link(rel='stylesheet', href='/css/index/index.css')
 
 block content
+  header
+    a#forkme_banner(href="https://github.com/Huihuawk/dailyVue") View on GitHub
   div.start-img
     div.back-img(style="background-image: url(#{pic.img})" data-img="#{pic.img}")
     p.author #{pic.text}

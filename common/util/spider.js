@@ -2,7 +2,7 @@ var CronJob = require('cron').CronJob;
 var Promise = require('es6-promise');
 
 var ArticleDAO = require('../db/models/article');
-var HistoryDAO = require('../db/models/history')
+var HistoryDAO = require('../db/models/history');
 var dlAPI = require('../api/index');
 var DateCalc = require('./date');
 
@@ -11,10 +11,7 @@ var historyDAO = new HistoryDAO();
 var Spider = {
     init: function (start, end) {
         var dateCalc = new DateCalc(start);
-        console.log(dateCalc);
-        console.log(dateCalc.before());
         historyDAO.count({dtime: dateCalc.before()}).then(function (d) {
-            console.log(d);
             d == 0 && Spider.loopDate(start, end);
         })
     },
@@ -22,7 +19,6 @@ var Spider = {
     day: function (date) {
         dlAPI.getHistory(date).then(function (history) {
             var date = history.date;
-            console.log(history);
             var d = history.stories;
             for(var i = 0; i < d.length; i++){
                 var img = '';

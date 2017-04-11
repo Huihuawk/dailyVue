@@ -6,6 +6,7 @@ var HistoryScheme = new Schema({
     id: String,
     title: String,
     image: String,
+    type: String,
     dtime: String,
     dmonth: String,
     dyear: String
@@ -21,25 +22,25 @@ HistoryDAO.prototype = {
         return new Promise(function (resolve, reject) {
             var instance = new History(obj);
             instance.save(function (err) {
-                resolve && resolve(err);
+                resolve(err);
             })
         })
     },
     list: function () {
         return new Promise(function (resolve, reject) {
             History.find(function (err, d) {
-                resolve && resolve(d);
+                resolve(d);
             })
         })
     },
     count: function (query) {
         return new Promise(function (resolve, reject) {
             History.count(query, function (err, d) {
-                resolve && resolve(d);
+                resolve(d);
             })
         })
     },
-    so: function (query) {
+    search: function (query) {
         return new Promise(function (resolve, reject) {
             History.find(query, function (err, d) {
                 var data = [];
@@ -52,7 +53,7 @@ HistoryDAO.prototype = {
                     }
                     data.push(re);
                 }
-                resolve && resolve(data);
+                resolve(data);
             })
         })
     }

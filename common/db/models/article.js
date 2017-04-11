@@ -4,14 +4,13 @@ var Promise = require('es6-promise').Promise;
 
 var ArticleSchema = new Schema({
     id: String,
-    theme: Number,
     title: String,
     body: String,
     image: String,
-    image_source: String,
+    imageSource: String,
     css: [String],
     js: [String],
-    dtime: Date
+    shareUrl: String
 });
 
 var ArticleDAO = function () {
@@ -26,7 +25,7 @@ ArticleDAO.prototype = {
         return new Promise(function (resolve, reject) {
             var instance = new Article(obj);
             instance.save(function (err) {
-                resolve && resolve(err);
+                resolve(err);
             })
         })
     }

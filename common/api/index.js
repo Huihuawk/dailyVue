@@ -9,8 +9,10 @@ var API = {
     'latest'    : 'http://news-at.zhihu.com/api/4/news/latest',
     'article'   : 'http://news-at.zhihu.com/api/4/news/',
     'history'   : 'http://news.at.zhihu.com/api/4/news/before/',
-    'cmtCount'  : 'http://news-at.zhihu.com/api/4/story-extra/'
-}
+    'cmtCount'  : 'http://news-at.zhihu.com/api/4/story-extra/',
+    'cmtLong'   : 'http://news-at.zhihu.com/api/4/story/',
+    'cmtShort'  : 'http://news-at.zhihu.com/api/4/story/'
+};
 
 var data = {
 
@@ -50,17 +52,19 @@ var data = {
     },
     //文章详情
     getArticle: function (articleId) {
-        if(articleId) {
-            var url = API.article + articleId;
-            request(url, function (err, response, body) {
-                if(!err){
-                    var article = JSON.parse(body);
-                    return article;
-                }
-            })
-        }else {
-            return null;
-        }
+       return new Promise(function (resolve, reject) {
+           if(articleId){
+               var url = API.article + articleId;
+               request({
+                   method: 'GET',
+                   uri: url,
+                   headers: {'Authorization': config.auth}
+               },function (err, response, body) {
+                   var article = err ? null : JSON.parse(body);
+                   resolve(article);
+               })
+           }
+       })
     },
     //历史内容
     getHistory: function (date) {
@@ -72,10 +76,7 @@ var data = {
                     uri: url,
                     headers: {'Authorization': config.auth }
                 }, function (err, response, body) {
-                    var history = null;
-                    if(!err){
-                        history = JSON.parse(body);
-                    }
+                    var history = err ? null : JSON.parse(body);
                     resolve(history);
                 })
             }else {
@@ -84,28 +85,59 @@ var data = {
         })
     },
     //评论，点赞数
-    getCmtcount: function (articleID) {
+    getCmtcount: function (articleId) {
         return new Promise(function (resolve, reject) {
-            if(articleID){
-                var url = API.cmtCount + articleID;
-                console.log(url);
+            if(articleId){
+                var url = API.cmtCount + articleId;
                 request({
                     method: 'Get',
                     uri: url,
                     headers: {'Authorization': config.auth}
                 }, function (err, response, body) {
-                    var count = null;
-                    if(!err){
-                        count = JSON.parse(body);
-                    }
+                    var count = err ? null : JSON.parse(body);
                     resolve(body);
                 })
             }else {
-                console.log("null aaa");
+                resolve(null);
+            }
+        })
+    },
+    //长评论
+    getCmtLong: function (articleId) {
+        return new Promise(function (resolve, reject) {
+            if (articleId){
+                var url = API.cmtLong + articleId;
+                request({
+                    method: 'GET',
+                    uri: url,
+                    headers: {'Authorization': config.auth}
+                }, function (err, response, body) {
+                    var comments = err ? null : JSON.parse(body);
+                    resolve(comments);
+                })
+            }else {
+                resolve(null);
+            }
+        })
+    },
+    //短评论
+    getCmtShort: function (articleId) {
+        return new Promise(function (resolve, reject) {
+            if (articleId){
+                var url = API.cmtShort + articleId;
+                request({
+                    method: 'GET',
+                    uri: url,
+                    headers: {'Authorization': config.auth}
+                },function (err, response, body) {
+                    var comments = err ?　null : JSON.parse(body);
+                    resolve(comments);
+                })
+            }else {
                 resolve(null);
             }
         })
     }
-}
+};
 
 module.exports = data;

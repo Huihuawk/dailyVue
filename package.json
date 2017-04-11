@@ -1,6 +1,6 @@
 {
   "name": "daily-vue",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/zh"
@@ -16,10 +16,12 @@
     "jade": "~1.11.0",
     "mongoose": "^4.9.3",
     "morgan": "~1.8.1",
-    "request": "~2.53.0",
-    "serve-favicon": "~2.4.2"
+    "request": "~2.72.0",
+    "serve-favicon": "~2.4.2",
+    "pug": "~2.0.0-beta3"
   },
   "devDependencies": {
     "jquery": "^3.2.1"
-  }
+  },
+  "author": "wk"
 }

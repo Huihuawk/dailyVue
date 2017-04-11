@@ -46,9 +46,9 @@ HistoryDAO.prototype = {
                 for(var i = 0; i< d.length; i++){
                     var re = {
                         id : d[i].id,
-                        title : d[i].title,
-                        image: d[i].image,
-                        theme: d[i].theme
+                        title : d[i].title ? d[i].title : '',
+                        image: d[i].image ? d[i].image : '',
+                        theme: d[i].theme ? d[i].theme : ''
                     }
                     data.push(re);
                 }

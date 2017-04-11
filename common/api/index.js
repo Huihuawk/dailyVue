@@ -8,7 +8,8 @@ var API = {
     'startPic'  : 'http://news-at.zhihu.com/api/4/start-image/720*1184',
     'latest'    : 'http://news-at.zhihu.com/api/4/news/latest',
     'article'   : 'http://news-at.zhihu.com/api/4/news/',
-    'history'   : 'http://news.at.zhihu.com/api/4/news/before/'
+    'history'   : 'http://news.at.zhihu.com/api/4/news/before/',
+    'cmtCount'  : 'http://news-at.zhihu.com/api/4/story-extra/'
 }
 
 var data = {
@@ -66,7 +67,6 @@ var data = {
         return new Promise(function (resolve, reject) {
             if(date){
                 var url = API.history + date;
-                console.log(url);
                 request({
                     method: 'GET',
                     uri: url,
@@ -79,6 +79,29 @@ var data = {
                     resolve(history);
                 })
             }else {
+                resolve(null);
+            }
+        })
+    },
+    //评论，点赞数
+    getCmtcount: function (articleID) {
+        return new Promise(function (resolve, reject) {
+            if(articleID){
+                var url = API.cmtCount + articleID;
+                console.log(url);
+                request({
+                    method: 'Get',
+                    uri: url,
+                    headers: {'Authorization': config.auth}
+                }, function (err, response, body) {
+                    var count = null;
+                    if(!err){
+                        count = JSON.parse(body);
+                    }
+                    resolve(body);
+                })
+            }else {
+                console.log("null aaa");
                 resolve(null);
             }
         })

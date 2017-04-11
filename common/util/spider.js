@@ -3,10 +3,12 @@ var Promise = require('es6-promise');
 
 var ArticleDAO = require('../db/models/article');
 var HistoryDAO = require('../db/models/history');
+var CmtCountDAO = require('../db/models/cmtCount');
 var dlAPI = require('../api/index');
 var DateCalc = require('./date');
 
-var historyDAO = new HistoryDAO();
+var historyDAO = new HistoryDAO(),
+    cmtCountDAO = new CmtCountDAO();
 
 var Spider = {
     init: function (start, end) {
@@ -41,6 +43,19 @@ var Spider = {
                 }
                 historyDAO.save(data);
             }
+        })
+    },
+    //评论，点赞
+    comment: function (articleId) {
+        dlAPI.getCmtcount(articleId).then(function (count) {
+            var data = {
+                id: articleId,
+                longComments: count.longComments ? count.longComments : 0,
+                shortComments: count.shortComments ? count.shortComments : 0,
+                popularity: count.popularity ? count.popularity : 0,
+                comments: count.comments ? count.comments : 0
+            }
+            cmtCountDAO.save(data);
         })
     },
     loopDate: function (start, end) {

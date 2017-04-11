@@ -10,6 +10,8 @@ var Promise = require('es6-promise');
 
 var LogSchema = new Schema({
     id: String,
+    err: String,
+    date: String,
     msg: String
 });
 

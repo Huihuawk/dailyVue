@@ -46,10 +46,12 @@ var Spider = {
                 historyDAO.save(data).then(function (err) {
                     if(err){
                         //写入存储的log
-                        var error = {
+                        var log = {
                             id: data.id,
+                            err: 1,
+                            date: date,
                             msg: JSON.parse(err)
-                        }
+                        };
                         logDAO.save(error);
                     }
                 })
@@ -104,14 +106,28 @@ var Spider = {
                         dtime: d.date,
                         dyear: d.date.substr(0,4)
                     };
-                    historyDAO.save(data);
+                    historyDAO.save(data).then(function (err) {
+                        if(err){
+                            var error = {
+                                id: data.id,
+                                err: 2,
+                                date:[d.getFullYear(), '-', Spider._cover(d.getMonth()+1), '-', Spider._cover(d.getDate())].join(''),
+                                msg: JSON.parse(err)
+                            }
+                            logDAO.save(error);
+                        }
+                    })
                 }
             })
         }, function () {
             console.log('cronjob over');
         }, true, 'Asia/Shanghai')
+    },
+    _cover: function (num) {
+        var n = parseInt(num, 10);
+        return n < 10 ? '0' + n : n;
     }
-}
+};
 
 module.exports = Spider;
 

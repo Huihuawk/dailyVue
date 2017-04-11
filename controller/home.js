@@ -44,7 +44,7 @@ var Home = {
             query = {title: new RegExp(key)};
         console.log('query',query);
         var historyDAO = new HistoryDAO();
-        historyDAO.so(query).then(function (result) {
+        historyDAO.so(query).then(function (err, result) {
             res.render('list', {'title': key + '_日报搜索', 'list': result});
         })
     },

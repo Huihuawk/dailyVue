@@ -52,7 +52,7 @@ HistoryDAO.prototype = {
                     }
                     data.push(re);
                 }
-                resolve && resolve(data);
+                resolve && resolve(err,data);
             })
         })
     }

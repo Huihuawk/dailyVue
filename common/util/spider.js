@@ -4,11 +4,13 @@ var Promise = require('es6-promise');
 var ArticleDAO = require('../db/models/article');
 var HistoryDAO = require('../db/models/history');
 var CmtCountDAO = require('../db/models/cmtCount');
+var LogDAO = require('../db/models/log');
 var dlAPI = require('../api/index');
 var DateCalc = require('./date');
 
 var historyDAO = new HistoryDAO(),
-    cmtCountDAO = new CmtCountDAO();
+    cmtCountDAO = new CmtCountDAO(),
+    logDAO = new LogDAO();
 
 var Spider = {
     init: function (start, end) {
@@ -41,7 +43,16 @@ var Spider = {
                     dmonth: date.substr(0,6),
                     dyear: date.substr(0,4)
                 }
-                historyDAO.save(data);
+                historyDAO.save(data).then(function (err) {
+                    if(err){
+                        //写入存储的log
+                        var error = {
+                            id: data.id,
+                            msg: JSON.parse(err)
+                        }
+                        logDAO.save(error);
+                    }
+                })
             }
         })
     },

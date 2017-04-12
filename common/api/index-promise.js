@@ -14,7 +14,7 @@ var API = {
 
 var data = {
     getStartPic: function () {
-        var url = API.startPic;
+        var url = API.latest;
         return new Promise(function (resolve, reject) {
             request(url, function (err, response, body) {
                 var pic = null;

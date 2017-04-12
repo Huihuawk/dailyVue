@@ -19,7 +19,7 @@ var historyDAO = new HistoryDAO(),
 
 const Spider = {
     init: function (start, end) {
-        Spider.daily();
+        // Spider.daily();
         start = new DateCalc(start).after();
         end = new DateCalc(end).after();
         historyDAO.count({dtime: start}).then(function (d) {
@@ -74,18 +74,10 @@ const Spider = {
     },
     dataOne: function (data, date) {
         return Spider.history(data)
-            .then(function (data) {
-                return Spider.article(data.id, data.dtime);
-            })
-            .then(function (data) {
-                return Spider.cmtCount(data.id, data.dtime);
-            })
-            .then(function (data) {
-                return Spider.cmtLong(data.id, data.dtime);
-            })
-            .then(function (data) {
-                return Spider.cmtShort(data.id, data.dtime);
-            })
+            .then(Spider.article(data.id, data.dtime))
+            .then(Spider.cmtCount(data.id, data.dtime))
+            .then(Spider.cmtLong(data.id, data.dtime))
+            .then(Spider.cmtShort(data.id, data.dtime))
             .catch(function (e) {
                 console.log('day @' + date + ' history data error @id: ' + data.id, e);
             })
@@ -278,8 +270,8 @@ const Spider = {
             theme: data.theme ? data.theme.id : 0,
             type: data.type || '0',
             dtime: date,
-            dmonth: date.substr(0,6),
-            dyear: date.substr(0,4)
+            dmonth: date.substr(0, 6),
+            dyear: date.substr(0, 4)
         };
         historyDAO.save(his)
             .then(function () {
@@ -290,7 +282,7 @@ const Spider = {
                     id: data.id,
                     err: config.spider.errDaily,
                     date: dtime,
-                    msg:err
+                    msg: err
                 };
                 console.log('daily save error @aid: ' + data.id);
                 logDAO.save(err);

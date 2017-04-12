@@ -22,11 +22,29 @@ var Spider = {
         start = new DateCalc(start).after();
         end = new DateCalc(end).after();
         historyDAO.count({dtime: start}).then(function (d) {
-            if (start == end){
-                d == 0 && Spider.day(start);
-            } else {
-                d == 0 && Spider.loopDayData(start, end);
-            }
+            // if (start == end){
+            //     d == 0 && Spider.day(start);
+            // } else {
+            //     d == 0 && Spider.loopDayData(start, end);
+            // }
+            console.log(d);
+            start = new DateCalc(start).after();
+            end = new DateCalc(end).after();
+            var spiderCronJob = new CronJob('*/20 * * * * *', function () {
+                if (d == 0){
+                    Spider.day(start);
+                    var dateCalc = new DateCalc(start);
+                    start = dateCalc.before();
+                    if (start == end){
+                        setTimeout(function () {
+                            Spider.day(end);
+                        }, 20*1000);
+                        spiderCronJob.stop();
+                    }else {
+                        spiderCronJob.stop();
+                    }
+                }
+            }, null, true, 'Asia/Shanghai');
         });
     },
     //日数据
@@ -49,7 +67,6 @@ var Spider = {
                 var p = Spider.history(data)
                     .then(function (err) {
                         if (err) {
-                            //写入存储的log
                             let log = {
                                 id: data.id,
                                 err: 1,
@@ -62,11 +79,11 @@ var Spider = {
                             return Promise.resolve(data.id);
                         }
                     }).then(function (aid) {
-                        return Spider.cmtLong(aid);
+                        // return Spider.cmtLong(aid);
                     }).then(function (aid) {
-                        return Spider.cmtShort(aid);
+                        // return Spider.cmtShort(aid);
                     }).then(function (aid) {
-                        return Spider.cmtCount(aid);
+                        // return Spider.cmtCount(aid);
                     }).catch(function (e) {
                         console.log('day history data error id:' + data.id, e);
                     });
@@ -95,7 +112,6 @@ var Spider = {
             return articleDAO.save(data)
                 .then(function (err) {
                     if (err) {
-                        //写入存储的log
                         let log = {
                             id: data.id,
                             err: config.spider.errArticle,
@@ -182,9 +198,9 @@ var Spider = {
     },
     //短评论
     cmtShort: function (aid) {
-        return dlAPI.getCmtShort(aid).then(function (article) {
+        return dlAPI.getCmtShort(aid).then(function (cmts) {
             var data = {
-                aid: article.id,
+                aid: aid,
                 comments: cmts.comments,
                 type: 0
             };

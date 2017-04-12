@@ -12,7 +12,10 @@ var CmtCountSchema = new Schema({
     longComments: Number,
     shortComments: Number,
     popularity: Number,
-    comments: Number
+    comments: Number,
+    dtime: String,
+    dmonth: String,
+    dyear: String
 });
 
 var CmtCountDAO = function () {};
@@ -25,7 +28,8 @@ CmtCountDAO.prototype = {
         return new Promise(function (resolve, reject) {
             var instance = new CmtCount(obj);
             instance.save(function (err) {
-                resolve && resolve(err);
+                if(!err) return reject(err);
+                resolve();
             })
         })
     }

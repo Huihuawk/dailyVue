@@ -60,9 +60,14 @@ var data = {
                    uri: url,
                    headers: {'Authorization': config.auth}
                },function (err, response, body) {
-                   var article = err ? null : JSON.parse(body);
-                   resolve(article);
+                   if(!err){
+                       resolve(JSON.parse(body));
+                   }else {
+                       return reject(err);
+                   }
                })
+           }else {
+               reject(null);
            }
        })
     },
@@ -76,11 +81,14 @@ var data = {
                     uri: url,
                     headers: {'Authorization': config.auth }
                 }, function (err, response, body) {
-                    var history = err ? null : JSON.parse(body);
-                    resolve(history);
+                    if(!err){
+                        resolve(JSON.parse(body));
+                    }else {
+                        return reject(err);
+                    }
                 })
             }else {
-                resolve(null);
+                reject(null);
             }
         })
     },
@@ -94,11 +102,14 @@ var data = {
                     uri: url,
                     headers: {'Authorization': config.auth}
                 }, function (err, response, body) {
-                    var count = err ? null : JSON.parse(body);
-                    resolve(body);
+                    if(!err){
+                        resolve(JSON.parse(body));
+                    }else {
+                        return reject(err);
+                    }
                 })
             }else {
-                resolve(null);
+                reject(null);
             }
         })
     },
@@ -112,11 +123,14 @@ var data = {
                     uri: url,
                     headers: {'Authorization': config.auth}
                 }, function (err, response, body) {
-                    var comments = err ? null : JSON.parse(body);
-                    resolve(comments);
+                    if(!err){
+                        resolve(JSON.parse(body));
+                    }else {
+                        return reject(err);
+                    }
                 })
             }else {
-                resolve(null);
+                reject(null);
             }
         })
     },
@@ -130,11 +144,14 @@ var data = {
                     uri: url,
                     headers: {'Authorization': config.auth}
                 },function (err, response, body) {
-                    var comments = err ?　null : JSON.parse(body);
-                    resolve(comments);
+                    if(!err){
+                        resolve(JSON.parse(body));
+                    }else {
+                        return reject(err);
+                    }
                 })
             }else {
-                resolve(null);
+                reject(null);
             }
         })
     }

@@ -22,6 +22,9 @@ module.exports = {
         }
     },
     spider: {
+        start: '20170410',
+        end: '20170408',
+        interval: 20,
         errHistory: 1,
         errArticle: 2,
         errComments: 3

@@ -10,7 +10,10 @@ var ArticleSchema = new Schema({
     imageSource: String,
     css: [String],
     js: [String],
-    shareUrl: String
+    shareUrl: String,
+    dtime: String,
+    dmonth: String,
+    dyear: String
 });
 
 var ArticleDAO = function () {
@@ -25,7 +28,8 @@ ArticleDAO.prototype = {
         return new Promise(function (resolve, reject) {
             var instance = new Article(obj);
             instance.save(function (err) {
-                resolve(err);
+                if(!err) return reject(err);
+                resolve();
             })
         })
     }

@@ -25,7 +25,8 @@ LogDAO.prototype = {
         return new Promise(function (resolve, reject) {
             var instance = new Log(obj);
             instance.save(function (err) {
-                resolve && resolve(err);
+                if(!err) return reject(err);
+                resolve();
             })
         })
     }

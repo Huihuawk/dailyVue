@@ -8,7 +8,7 @@ var HistoryDAO = require('../db/models/history');
 var CmtCountDAO = require('../db/models/cmtCount');
 var CommentsDAO = require('../db/models/comments');
 var LogDAO = require('../db/models/log');
-var dlAPI = require('../api/index');
+var dlAPI = require('../api/index-promise');
 var DateCalc = require('./date');
 
 var historyDAO = new HistoryDAO(),
@@ -264,28 +264,6 @@ const Spider = {
                 console.log('-------over request-------');
                 for (var i = 0; i < d.length; i++) {
                     Spider._dailySave(date, d[i]);
-                    // var img = '';
-                    // if (d[i].images) {
-                    //     img = d[i].images[0];
-                    // }
-                    // var data = {
-                    //     id: d[i].id,
-                    //     title: d[i].title,
-                    //     image: img,
-                    //     dtime: d.date,
-                    //     dyear: d.date.substr(0, 4)
-                    // };
-                    // historyDAO.save(data).then(function (err) {
-                    //     if (err) {
-                    //         var error = {
-                    //             id: data.id,
-                    //             err: 2,
-                    //             date: [d.getFullYear(), '-', Spider._cover(d.getMonth() + 1), '-', Spider._cover(d.getDate())].join(''),
-                    //             msg: JSON.parse(err)
-                    //         }
-                    //         logDAO.save(error);
-                    //     }
-                    // })
                 }
             })
         }, function () {
@@ -304,7 +282,7 @@ const Spider = {
             dyear: date.substr(0,4)
         };
         historyDAO.save(his)
-            .then(function (data) {
+            .then(function () {
                 return Spider.article(data.id, date);
             })
             .catch(function (err) {

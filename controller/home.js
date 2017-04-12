@@ -1,7 +1,7 @@
 var request = require('request');
 var Promise = require('es6-promise').Promise;
 // var $ = require('cheerio');
-var dlAPI = require('../common/api/index');
+var dlAPI = require('../common/api/index-promise');
 var HistoryDAO = require('../common/db/models/history');
 
 var Home = {

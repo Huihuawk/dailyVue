@@ -12,17 +12,21 @@ var home = require('./../controller/home');
 router.get('/', home.getLatest);
 router.get('/index', home.getLatest);
 router.get('/list', home.list);
-router.get('/s/:key', home.so);
 
 //date
-router.get('/d/:day', home.soByDate);
-router.get('/m/:month', home.soByDate);
-router.get('/y/:year', home.soByDate);
+router.get('/d/:day', home.searchByDate);
+router.get('/m/:month', home.searchByDate);
+router.get('/y/:year', home.searchByDate);
 
-router.get('/test', home.test);
+// detail
+router.get('/article/:aid', home.getArticle);
 
+// comments
+router.get('/cmt/count/:aid', home.getCmtcount);
+router.get('/cmt/long/:aid', home.getCmtLong);
+router.get('/cmt/short/:aid', home.getCmtShort);
 
-//imgProxy
-// router.get('/img', imgProxy.proxy);
+// router.get('/test', home.test);
+
 
 module.exports = router;

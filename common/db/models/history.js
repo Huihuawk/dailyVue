@@ -12,7 +12,8 @@ var HistoryScheme = new Schema({
     dyear: String
 });
 
-var HistoryDAO = function () {};
+var HistoryDAO = function () {
+};
 
 var History = mongodb.mongoose.model('History', HistoryScheme);
 
@@ -22,7 +23,7 @@ HistoryDAO.prototype = {
         return new Promise(function (resolve, reject) {
             var instance = new History(obj);
             instance.save(function (err) {
-                if(err) return reject(err);
+                if (err) return reject(err);
                 resolve();
             })
         })
@@ -45,14 +46,16 @@ HistoryDAO.prototype = {
         return new Promise(function (resolve, reject) {
             History.find(query, function (err, d) {
                 var data = [];
-                for(var i = 0; i< d.length; i++){
-                    var re = {
-                        id : d[i].id,
-                        title : d[i].title ? d[i].title : '',
-                        image: d[i].image ? d[i].image : '',
-                        theme: d[i].theme ? d[i].theme : ''
+                if (d.length) {
+                    for (var i = 0; i < d.length; i++) {
+                        var re = {
+                            id: d[i].id,
+                            title: d[i].title,
+                            image: d[i].image,
+                            dtime: d[i].dtime
+                        };
+                        data.push(re);
                     }
-                    data.push(re);
                 }
                 resolve(data);
             })

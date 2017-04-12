@@ -21,7 +21,8 @@ var CommentsSchema = new Schema({
 
 var Comments = mongodb.mongoose.model('Comments', CommentsSchema);
 
-var CommentsDAO = function () {};
+var CommentsDAO = function () {
+};
 
 CommentsDAO.prototype = {
     constructor: CommentsDAO,
@@ -29,8 +30,32 @@ CommentsDAO.prototype = {
         return new Promise(function (resolve, reject) {
             var instance = new Comments(obj);
             instance.save(function (err) {
-                if(err) return reject(err);
+                if (err) return reject(err);
                 resolve();
+            })
+        })
+    },
+    search: function (query) {
+        return new Promise(function (resolve, reject) {
+            Comments.find(query, function (err, data) {
+                if (err) return reject(err);
+                var result = [];
+                console.log("data",data);
+                console.log("id",query);
+                if (data.length) {
+                    for (let i = 0; i < data.length; i++) {
+                        var d = {
+                            aid: data[i].aid,
+                            comments: data[i].comments,
+                            type: data[i].type,
+                            dtime: data[i].dtime,
+                            dmonth: data[i].dmonth,
+                            dyear: data[i].year
+                        };
+                        result.push(d)
+                    }
+                }
+                resolve(d);
             })
         })
     }

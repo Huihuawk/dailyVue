@@ -17,19 +17,44 @@ var ArticleSchema = new Schema({
 });
 
 var ArticleDAO = function () {
-    
+
 };
 
 var Article = mongodb.mongoose.model('Article', ArticleSchema);
 
 ArticleDAO.prototype = {
     constructor: ArticleDAO,
-    save: function(obj){
+    save: function (obj) {
         return new Promise(function (resolve, reject) {
             var instance = new Article(obj);
             instance.save(function (err) {
-                if(err) return reject(err);
+                if (err) return reject(err);
                 resolve();
+            })
+        })
+    },
+    search: function (query) {
+        return new Promise(function (resolve, reject) {
+            Article.find(query, function (err, data) {
+                if (err) return reject(err);
+                var result = [];
+                if (data.length) {
+                    for (var i = 0; i < data.length; i++) {
+                        var d = {
+                            id: data[i].id,
+                            title: data[i].title,
+                            body: data[i].body,
+                            image: data[i].image,
+                            imageSource: data[i].imageSource,
+                            shareUrl: data[i].shareUrl,
+                            dtime: data[i].dtime,
+                            dmonth: data[i].dmonth,
+                            dyear: data[i].dyear
+                        };
+                        result.push(d);
+                    }
+                }
+                resolve(d);
             })
         })
     }

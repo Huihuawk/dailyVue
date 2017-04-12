@@ -12,8 +12,11 @@ var Promise = require('es6-promise');
 
 var CommentsSchema = new Schema({
     aid: String,
-    comments: String,
-    type: Number
+    comments: Array,
+    type: Number,
+    dtime: String,
+    dmonth: String,
+    dyear: String
 });
 
 var Comments = mongodb.mongoose.model('Comments', CommentsSchema);
@@ -26,7 +29,7 @@ CommentsDAO.prototype = {
         return new Promise(function (resolve, reject) {
             var instance = new Comments(obj);
             instance.save(function (err) {
-                if(!err) return reject(err);
+                if(err) return reject(err);
                 resolve();
             })
         })

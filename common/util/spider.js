@@ -22,11 +22,6 @@ var Spider = {
         start = new DateCalc(start).after();
         end = new DateCalc(end).after();
         historyDAO.count({dtime: start}).then(function (d) {
-            // if (start == end){
-            //     d == 0 && Spider.day(start);
-            // } else {
-            //     d == 0 && Spider.loopDayData(start, end);
-            // }
             console.log(d);
             start = new DateCalc(start).after();
             end = new DateCalc(end).after();
@@ -78,17 +73,17 @@ var Spider = {
     },
     dataOne: function (data, date) {
         return Spider.history(data)
-            .then(function (d) {
-                return Spider.article(d.id, d.dtime);
+            .then(function (data) {
+                return Spider.article(data.id, data.dtime);
             })
-            .then(function (d) {
-                return Spider.cmtCount(d.id, d.dtime);
+            .then(function (data) {
+                return Spider.cmtCount(data.id, data.dtime);
             })
-            .then(function (d) {
-                return Spider.cmtLong(d.id, d.dtime);
+            .then(function (data) {
+                return Spider.cmtLong(data.id, data.dtime);
             })
-            .then(function (d) {
-                return Spider.cmtShort(d.id, d.dtime);
+            .then(function (data) {
+                return Spider.cmtShort(data.id, data.dtime);
             })
             .catch(function (e) {
                 console.log('day @' + date + ' history data error @id: ' + data.id, e);
@@ -154,7 +149,7 @@ var Spider = {
                 dtime: dtime,
                 dmonth: dtime.substr(0, 6),
                 dyear: dtime.substr(0, 4)
-            }
+            };
             return cmtCountDAO.save(data)
                 .then(function () {
                     return Promise.resolve({aid: aid, dtime: dtime});
@@ -223,21 +218,6 @@ var Spider = {
                     console.log('short comments  error ' + aid);
                     return logDAO.save(log);
                 })
-        })
-    },
-    loopDayData: function (start, end) {
-        var _self = this,
-            date = start,
-            dateCalc = new DateCalc(start);
-        // _self.day(date);
-        _self.day(date, function () {
-            date = dateCalc.before();
-            if (date === end) {
-                _self.day(date);
-                console.log('over-------------');
-            } else {
-                _self.loopDayData(date, end);
-            }
         })
     },
     //爬取每日最新的数据 每天23:30

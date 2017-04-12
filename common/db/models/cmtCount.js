@@ -28,7 +28,7 @@ CmtCountDAO.prototype = {
         return new Promise(function (resolve, reject) {
             var instance = new CmtCount(obj);
             instance.save(function (err) {
-                if(!err) return reject(err);
+                if(err) return reject(err);
                 resolve();
             })
         })

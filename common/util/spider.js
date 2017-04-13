@@ -10,6 +10,8 @@ var CommentsDAO = require('../db/models/comments');
 var LogDAO = require('../db/models/log');
 var dlAPI = require('../api/index-promise');
 var DateCalc = require('./date');
+var dateCalculator = new DateCalc();
+
 
 var historyDAO = new HistoryDAO(),
     cmtCountDAO = new CmtCountDAO(),
@@ -20,8 +22,6 @@ var historyDAO = new HistoryDAO(),
 const Spider = {
     init: function (start, end) {
         // Spider.daily();
-        start = new DateCalc(start).after();
-        end = new DateCalc(end).after();
         historyDAO.count({dtime: start}).then(function (d) {
             console.log(d);
             start = new DateCalc(start).after();
@@ -30,9 +30,9 @@ const Spider = {
             var interval = '*/' + CONFIG.spider.interval + ' * * * * *';
             var spiderCronJob = new CronJob(interval, function () {
                 if (d == 0) {
-                    Spider.day(start);
-                    var dateCalc = new DateCalc(start);
-                    start = dateCalc.before();
+                    Spider.day(end);
+                    dateCalculator.now(end);
+                    end = dateCalculator.after();
                     if (start == end) {
                         setTimeout(function () {
                             Spider.day(end);

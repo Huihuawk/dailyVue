@@ -1,9 +1,12 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var FileStreamRotator = require('file-stream-rotator');
+var log4js = require('log4js');
+var fs = require('fs');
 
 var routes = require('./routes/index');
 
@@ -21,7 +24,6 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
@@ -59,5 +61,27 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
+
+//log4js configure
+log4js.loadAppender('file');
+log4js.configure({
+    appenders: [
+        {type: 'console'},
+        {type: 'file', filename: './log/cheese.log', category: 'cheese'}
+    ]
+});
+//log4js end
+
+//Http log
+var logDirectory = path.join(__dirname, 'log');
+fs.existsSync(logDirectory) || fs.existsSync(logDirectory);
+var accessLogStream = FileStreamRotator.getStream({
+    date_format: 'YYYYMMDD',
+    filename: path.join(logDirectory, 'access-%DATE%.log'),
+    frequency: 'daily',
+    verbose: false
+});
+app.use(morgan('combined', {stream: accessLogStream}));
+// Http log end
 
 module.exports = app;

@@ -2,6 +2,7 @@ var request = require('request');
 var Promise = require('es6-promise').Promise;
 var cheerio = require('cheerio');
 var URL = require('url');
+var logger = require('log4js').getLogger('cheese');
 
 
 var dlAPI = require('../common/api/index-promise');
@@ -31,7 +32,6 @@ var Home = {
     //详情
     getArticle: function (req, res) {
         var aid = req.params.aid;
-        console.log(".........",aid)
         if (aid) {
             articleDAO.search({id: aid}).then(function (data) {
                 if (data.length) {
@@ -48,17 +48,16 @@ var Home = {
     },
     getCmtcount: function (req, res) {
         var aid = req.params.aid;
-        console.log(".........1",aid)
         if (aid) {
             cmtCountDAO.search(aid).then(function (result) {
                 res.json(result);
-                console.log(result);
             });
         }
     },
     getCmtLong: function (req, res) {
         var aid = req.params.aid;
-        console.log(".........L",req.params)
+        logger.info('getCmtLong @' + aid);
+        logger.error('error getCmtLong @' + aid);
         if (aid) {
             commentsDAO.search({aid: aid, type: 1}).then(function (result) {
                 res.json(result);
@@ -67,7 +66,6 @@ var Home = {
     },
     getCmtShort: function (req, res) {
         var aid = req.params.aid;
-        console.log(".........S",req.params)
         if (aid) {
             commentsDAO.search({aid: aid, type: 0}).then(function (result) {
                 res.json(result);
@@ -90,7 +88,6 @@ var Home = {
         }
         historyDAO.search(query).then(function (result) {
             // res.render('list', {'title': '日报' + title, 'list': result});
-            console.log("--------", query);
             console.log(result);
             res.json(result);
         })

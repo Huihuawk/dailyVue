@@ -28,6 +28,14 @@ HistoryDAO.prototype = {
             })
         })
     },
+    delete: function (query) {
+        return new Promise(function (resolve, reject) {
+            History.remove(query, function (err, data) {
+                if (err) return reject(err);
+                resolve(data);
+            })
+        })
+    },
     list: function () {
         return new Promise(function (resolve, reject) {
             History.find(function (err, d) {

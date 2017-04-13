@@ -29,6 +29,14 @@ TempDAO.prototype = {
             })
         })
     },
+    delete: function (query) {
+        return new Promise(function (resolve, reject) {
+            Temp.remove(query, function (err, data) {
+                if(err) return reject(err);
+                resolve(data);
+            })
+        })
+    },
     search: function (query) {
         return new Promise(function (resolve, reject) {
             Temp.find(query, function (err, data) {

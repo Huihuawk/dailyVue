@@ -28,21 +28,24 @@ const Spider = {
             console.log(d);
             start = new DateCalc(start).after();
             end = new DateCalc(end).after();
+            if (d > 0) {
+                return;
+            }
             // 每20秒一次 CONFIG.spider.interval == 20
             var interval = '*/' + CONFIG.spider.interval + ' * * * * *';
             var spiderCronJob = new CronJob(interval, function () {
                 if (d == 0) {
                     Spider.day(end);
-                    dateCalculator.now(end);
-                    end = dateCalculator.after();
+                    var dateCalc = new DateCalc(end);
+                    end = dateCalc.after();
                     if (start == end) {
                         setTimeout(function () {
                             Spider.day(end);
                         }, CONFIG.spider.interval * 1000);
                         spiderCronJob.stop();
-                    } else {
-                        spiderCronJob.stop();
                     }
+                } else {
+                    spiderCronJob.stop();
                 }
             }, null, true, 'Asia/Shanghai');
         });

@@ -35,13 +35,21 @@ CommentsDAO.prototype = {
             })
         })
     },
+    delete: function (query) {
+        return new Promise(function (resolve, reject) {
+            Comments.remove(query, function (err, data) {
+                if (err) return reject(err);
+                resolve(data);
+            })
+        })
+    },
     search: function (query) {
         return new Promise(function (resolve, reject) {
             Comments.find(query, function (err, data) {
                 if (err) return reject(err);
                 var result = [];
-                console.log("data",data);
-                console.log("id",query);
+                console.log("data", data);
+                console.log("id", query);
                 if (data.length) {
                     for (let i = 0; i < data.length; i++) {
                         var d = {

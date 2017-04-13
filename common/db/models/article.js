@@ -57,6 +57,14 @@ ArticleDAO.prototype = {
                 resolve(result);
             })
         })
+    },
+    delete: function (query) {
+        return new Promise(function (resolve, reject) {
+            Article.remove(query, function (err, data) {
+                if (err) return reject(err);
+                resolve(data);
+            })
+        })
     }
 };
 

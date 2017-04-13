@@ -34,6 +34,14 @@ CmtCountDAO.prototype = {
             })
         })
     },
+    delete: function (query) {
+        return new Promise(function (resolve, reject) {
+            CmtCount.remove(query, function (err, data) {
+                if (err) return reject(err);
+                resolve(data);
+            })
+        })
+    },
     search: function (query) {
         return new Promise(function (resolve, reject) {
             CmtCount.find(query, function (err, data) {

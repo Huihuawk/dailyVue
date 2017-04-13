@@ -55,7 +55,7 @@ CommentsDAO.prototype = {
                         result.push(d)
                     }
                 }
-                resolve(d);
+                resolve(result);
             })
         })
     }

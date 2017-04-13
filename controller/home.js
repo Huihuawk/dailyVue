@@ -2,7 +2,6 @@ var request = require('request');
 var Promise = require('es6-promise').Promise;
 var cheerio = require('cheerio');
 var URL = require('url');
-var logger = require('log4js').getLogger('cheese');
 
 
 var dlAPI = require('../common/api/index-promise');
@@ -56,8 +55,6 @@ var Home = {
     },
     getCmtLong: function (req, res) {
         var aid = req.params.aid;
-        logger.info('getCmtLong @' + aid);
-        logger.error('error getCmtLong @' + aid);
         if (aid) {
             commentsDAO.search({aid: aid, type: 1}).then(function (result) {
                 res.json(result);

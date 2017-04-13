@@ -11,9 +11,9 @@ var fs = require('fs');
 var routes = require('./routes/index');
 
 // 每天23点爬知乎日报的latest并存储
-var config = require('./config');
+var CONFIG = require('./config');
 var spider = require('./common/util/spider');
-spider.init(config.spider.start, config.spider.end);
+spider.init(CONFIG.spider.start, CONFIG.spider.end);
 
 var app = express();
 
@@ -58,30 +58,35 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        error: err
     });
 });
 
 //log4js configure
-log4js.loadAppender('file');
-log4js.configure({
-    appenders: [
-        {type: 'console'},
-        {type: 'file', filename: './log/cheese.log', category: 'cheese'}
-    ]
-});
+if (CONFIG.log.isOpenningNode) {
+    log4js.loadAppender('file');
+    log4js.configure({
+        appenders: [
+            {type: 'console'},
+            {type: 'file', filename: './log/cheese.log', category: 'cheese'}
+        ]
+    });
+}
 //log4js end
 
 //Http log
-var logDirectory = path.join(__dirname, 'log');
-fs.existsSync(logDirectory) || fs.existsSync(logDirectory);
-var accessLogStream = FileStreamRotator.getStream({
-    date_format: 'YYYYMMDD',
-    filename: path.join(logDirectory, 'access-%DATE%.log'),
-    frequency: 'daily',
-    verbose: false
-});
-app.use(morgan('combined', {stream: accessLogStream}));
+if (CONFIG.log.isOpenningHTTP) {
+    var logDirectory = path.join(__dirname, 'log');
+    fs.existsSync(logDirectory) || fs.existsSync(logDirectory);
+    var accessLogStream = FileStreamRotator.getStream({
+        date_format: 'YYYYMMDD',
+        filename: path.join(logDirectory, 'access-%DATE%.log'),
+        frequency: 'daily',
+        verbose: false
+    });
+    app.use(morgan('combined', {stream: accessLogStream}));
+}
+
 // Http log end
 
 module.exports = app;

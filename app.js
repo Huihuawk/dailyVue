@@ -10,12 +10,35 @@ var fs = require('fs');
 
 var routes = require('./routes/index');
 
+//webpack
+//中间件API使用文档 https://webpack.github.io/docs/webpack-dev-middleware.html
+var webpackConfig = process.env.NODE_ENV === 'testing'
+    ? require('./build/webpack.prod.conf')
+    : require('./build/webpack.dev.conf');
+var webpack = require('webpack');
+var webpackDevMiddleware = require('webpack-dev-middleware');
+var compiler = webpack(webpackConfig);
+var devMiddleware = webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    stats: {
+        colors: true,
+        chunks: true,
+        progress: true
+    }
+});
+var hotMiddleware = require('webpack-hot-middleware')(compiler);
+
+
 // 每天23点爬知乎日报的latest并存储
 var CONFIG = require('./config');
 var spider = require('./common/util/spider');
 spider.init(CONFIG.spider.start, CONFIG.spider.end);
 
 var app = express();
+
+//webpack Middleware
+app.use(devMiddleware);
+app.use(hotMiddleware);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

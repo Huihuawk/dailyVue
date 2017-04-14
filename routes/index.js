@@ -9,7 +9,6 @@ var home = require('./../controller/home');
 // });
 
 // latest
-router.get('/', home.getLatest);
 router.get('/index', home.getLatest);
 router.get('/list', home.list);
 

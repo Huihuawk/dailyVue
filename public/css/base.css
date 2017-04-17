@@ -63,9 +63,6 @@ a:active,
 a:hover {
   outline: 0 none;
 }
-img {
-  width: 100%;
-}
 .fl {
   float: left;
 }

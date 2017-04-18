@@ -32,7 +32,9 @@ var routes = require('./routes/index');
 // 每天23点爬知乎日报的latest并存储
 var CONFIG = require('./config');
 var spider = require('./common/util/spider');
-// spider.init(CONFIG.spider.start, CONFIG.spider.end);
+if (CONFIG.spider.gogo){
+    spider.init(CONFIG.spider.start, CONFIG.spider.end);
+}
 
 var app = express();
 

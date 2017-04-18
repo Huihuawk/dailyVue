@@ -12,30 +12,29 @@ function DateCalc(date, bef, aft) {
 DateCalc.prototype = {
     constructor: DateCalc,
     now: function () {
-        var d = new Date();
+        var d = this.date ? new Date(this.date) : new Date();
         return [d.getFullYear(), this._cover(d.getMonth() + 1), this._cover(d.getDate())].join('');
     },
     before: function (days) {
-        return days ? this._calc(days, 'before') : this._calc(1, 'before');
+        return this._calc(days || 1,'before');
     },
     after: function (days) {
-        return days ? this._calc(days, 'after') : this._calc(1, 'after');
+        return this._calc(days || 1,'after');
     },
     //计算前后的天数
     _calc: function (days, type) {
-        var _self = this,
-            d = new Date(_self.date),
+        var d = new Date(this.date),
             input = 0;
         if(type === 'before'){
-            input = 0 - _self.bef;
+            input = 0 - this.bef;
             days = 0 - days;
         }else {
-            input = _self.aft;
+            input = this.aft;
         }
         var total = days || input || 0;
 
         var newDate = new Date(d.getTime() + 3600 * 24 * 1000 * total);
-        return[newDate.getFullYear(), _self._cover(newDate.getMonth() + 1), _self._cover(newDate.getDate())].join('');
+        return[newDate.getFullYear(), this._cover(newDate.getMonth() + 1), this._cover(newDate.getDate())].join('');
     },
     _cover: function (num) {
         var n = parseInt(num, 10);

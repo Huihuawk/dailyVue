@@ -94,7 +94,7 @@ var data = {
             if (articleId) {
                 var url = API.cmtCount + articleId;
                 request({
-                    method: 'Get',
+                    method: 'GET',
                     uri: url,
                     headers: {'Authorization': config.auth}
                 }, function (err, response, body) {

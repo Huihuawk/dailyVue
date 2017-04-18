@@ -23,7 +23,6 @@ let logger = console;
 
 const Spider = {
     init: function (start, end) {
-        // Spider.daily();
         historyDAO.count({dtime: start}).then(function (d) {
             console.log(d);
             start = new DateCalc(start).after();
@@ -72,7 +71,7 @@ const Spider = {
             }
             Promise.all(promiseAll).then(function () {
                 console.log('day history data over @: ' + date);
-                logger.info('day history data over @: ' + date);
+                logger.info('day history data over @: ' + new DateCalc(date).before());
             }).catch(function (error) {
                 console.log('get ' + hDate + ' data error: ', error);
                 logger.error('get ' + hDate + ' data error: ', err);
@@ -91,7 +90,7 @@ const Spider = {
                 logger.error('day @' + date + 'history data error @id: ' + data.id, e);
             })
     },
-    //正文
+    //文章正文
     article: function (aid, dtime) {
         return dlAPI.getArticle(aid).then(function (article) {
             var data = {
@@ -103,6 +102,9 @@ const Spider = {
                 js: article.js,
                 imageSource: article.image_source,
                 shareUrl: article.share_url,
+                section: article.section || {},
+                sectionId: section.id || '',
+                sectionName: section.name || '',
                 dtime: dtime,
                 dmonth: dtime.substr(0, 6),
                 dyear: dtime.substr(0, 4)
@@ -198,43 +200,7 @@ const Spider = {
             .catch(function (err) {
                 logger.error('short comments save error @aid: ' + aid, err);
             })
-    },
-    //爬取每日最新的数据 每天23:30
-    daily: function () {
-        new CronJob('00 30 23 * * *', function () {
-            console.log('-------Begin-------');
-            dlAPI.getLatest().then(function (latest) {
-                var d = latest.stories,
-                    date = latest.date;
-                console.log('-------over request-------');
-                for (var i = 0; i < d.length; i++) {
-                    Spider._dailySave(date, d[i]);
-                }
-            })
-        }, function () {
-            console.log('cronjob over');
-        }, true, 'Asia/Shanghai')
-    },
-    _dailySave: function (date, data) {
-        var his = {
-            id: data.id,
-            title: data.title,
-            image: data.images.length ? data.images[0] : '',
-            theme: data.theme ? data.theme.id : 0,
-            type: data.type || '0',
-            dtime: date,
-            dmonth: date.substr(0, 6),
-            dyear: date.substr(0, 4)
-        };
-        historyDAO.save(his)
-            .then(function () {
-                return Spider.article(data.id, date);
-            })
-            .catch(function (err) {
-                logger.error('daily save error @aid:  ' + data.id, err);
-            })
     }
 };
 
 module.exports = Spider;
-

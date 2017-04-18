@@ -11,6 +11,9 @@ var ArticleSchema = new Schema({
     css: [String],
     js: [String],
     shareUrl: String,
+    section: Object,
+    sectoonId: String,
+    sectionName: String,
     dtime: String,
     dmonth: String,
     dyear: String
@@ -47,6 +50,7 @@ ArticleDAO.prototype = {
                             image: data[i].image,
                             imageSource: data[i].imageSource,
                             shareUrl: data[i].shareUrl,
+                            section: data[i].section,
                             dtime: data[i].dtime,
                             dmonth: data[i].dmonth,
                             dyear: data[i].dyear

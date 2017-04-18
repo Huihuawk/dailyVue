@@ -26,6 +26,7 @@ module.exports = {
         isOpenningNode: true
     },
     spider: {
+        gogo: true,
         start: '20170410',
         end: '20170408',
         interval: 20,

@@ -9,7 +9,7 @@ var home = require('./../controller/home');
 // });
 
 // latest
-router.get('/index', home.getLatest);
+router.get('/', home.getLatest);
 router.get('/list', home.list);
 
 //date

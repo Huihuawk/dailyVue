@@ -9,11 +9,13 @@ var HistoryDAO = require('../common/db/models/history');
 var ArticleDAO = require('../common/db/models/article');
 var CmtCountDAO = require('../common/db/models/cmtCount');
 var CommentsDAO = require('../common/db/models/comments');
+var LatestDAO = require('../common/db/models/latest');
 
 var cmtCountDAO = new CmtCountDAO();
 var articleDAO = new ArticleDAO();
 var commentsDAO = new CommentsDAO();
 var historyDAO = new HistoryDAO();
+var latestDAO = new LatestDAO();
 
 
 var Home = {
@@ -22,10 +24,10 @@ var Home = {
     },
     //最新内容
     getLatest: function (req, res) {
-        Promise.all([dlAPI.getStartPic(), dlAPI.getLatest()]).then(function (result) {
-            var pic = result[0];
-            var latest = result[1];
-            res.render('index', {'title': 'Daily', 'pic': pic, 'latest': latest.stories});
+        latestDAO.all().then(function (result) {
+            if (result.length) {
+                res.json(result)
+            }
         })
     },
     //详情

@@ -7,6 +7,7 @@ var ArticleDAO = require('../db/models/article');
 var HistoryDAO = require('../db/models/history');
 var CmtCountDAO = require('../db/models/cmtCount');
 var CommentsDAO = require('../db/models/comments');
+var LatestDAO = require('../db/models/latest');
 var TempDAO = require('../db/models/temp');
 var dlAPI = require('../api/index-promise');
 var DateCalc = require('./date');
@@ -17,12 +18,13 @@ var historyDAO = new HistoryDAO(),
     cmtCountDAO = new CmtCountDAO(),
     articleDAO = new ArticleDAO(),
     commentsDAO = new CommentsDAO(),
+    latestDAO = new LatestDAO(),
     tempDAO = new TempDAO();
 
 let logger = console;
 
 const Spider = {
-    init: function (start, end) {
+    gogo: function (start, end) {
         historyDAO.count({dtime: start}).then(function (d) {
             console.log(d);
             start = new DateCalc(start).after();
@@ -107,7 +109,8 @@ const Spider = {
                 sectionName: section.name || '',
                 dtime: dtime,
                 dmonth: dtime.substr(0, 6),
-                dyear: dtime.substr(0, 4)
+                dyear: dtime.substr(0, 4),
+                latest: latest
             };
             return articleDAO.save(data)
                 .then(function () {
@@ -199,6 +202,105 @@ const Spider = {
             })
             .catch(function (err) {
                 logger.error('short comments save error @aid: ' + aid, err);
+            })
+    },
+    //更新评论
+    updateCmtCount: function (start, end) {
+        var aidArr = [];
+        return cmtCountDAO.search({dtime: start})
+            .then(function (data) {
+                if (data.length) {
+                    for (var i = 0; i < data.length; i++) {
+                        aidArr.push(data[i].aid);
+                    }
+                    return cmtCountDAO.delete({aid: {$in: aidsArr}});
+                } else {
+                    return Promise.reject('delete over');
+                }
+            })
+            .then(function () {
+                var promiseArr = [];
+                while (aidsArr.length > 0) {
+                    var aid = aidsArr.pop();
+                    promiseArr.push(Spider.cmtCount(aid, start));
+                }
+                return Promise.all(promiseArr);
+            })
+            .then(function () {
+                dateCalculator.now(start);
+                var date = dateCalculator.before();
+                if (date != end) {
+                    Spider.updateCmtCount(date, end)
+                }
+                return Promise.resolve(start);
+            })
+            .catch(function (err) {
+                logger.error('update error : ' + err);
+                return Promise.resolve(start);
+            })
+    },
+    //latest 内容
+    latest(){
+        var dtime = dateCalculator.now(),
+            topID = [],
+            latestID = [];
+        articleDAO.delete({latest: true})
+            .then(function () {
+                return latestDAO.delete()
+            }).then(function () {
+            return dlAPI.getLatest()
+        })
+            .then(function (d) {
+                var dtime = d.date,
+                    stories = d.stories,
+                    top = d.top_stories,
+                    promiseAll = [];
+                for (var i = 0; i < top.length; i++) {
+                    topID.push(top[i].id);
+                    var data = {
+                        id: top[i].id,
+                        title: top[i].title,
+                        image: top[i].image,
+                        top: true,
+                        dtime: dtime
+                    };
+                    var p = latestDAO.save(data);
+                    promiseAll.push(p)
+                }
+                for (var i = 0; i < stories.length; i++) {
+                    latestID.push(stories[i].id);
+                    var data = {
+                        id: stories[i].id,
+                        title: stories[i].title,
+                        image: stories[i].images ? stories[i].images[0] : '',
+                        top: false,
+                        dtime: dtime
+                    };
+                    var p = latestDAO.save(data);
+                    promiseAll.push(p)
+                }
+                return Promise.all(promiseAll);
+            })
+            .then(function () {
+                for (let x = 0; x < topID.length; x++) {
+                    Spider.article(topID[x], dtime, true);
+                }
+                for (let y = 0; y < latestID.length; y++) {
+                    Spider.article(latestID[y], dtime, true);
+                    dlAPI.getCmtcount(latestID[y])
+                        .then(function (count) {
+                            var data = {
+                                id: latestID[y],
+                                comments: count.comments || 0,
+                                popularity: count.popularity || 0,
+                                dtime: dtime
+                            }
+                            latestDAO.save(data);
+                        })
+                }
+            })
+            .catch(function (err) {
+                logger.error('get lastest data error: ', err);
             })
     }
 };

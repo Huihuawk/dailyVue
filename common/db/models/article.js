@@ -51,6 +51,8 @@ ArticleDAO.prototype = {
                             imageSource: data[i].imageSource,
                             shareUrl: data[i].shareUrl,
                             section: data[i].section,
+                            sectionId: data[i].sectionId,
+                            sectionName: data[i].sectionName,
                             dtime: data[i].dtime,
                             dmonth: data[i].dmonth,
                             dyear: data[i].dyear

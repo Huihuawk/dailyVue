@@ -70,7 +70,6 @@ const Spider = {
                 promiseAll.push(p);
             }
             Promise.all(promiseAll).then(function () {
-                console.log('day history data over @: ' + date);
                 logger.info('day history data over @: ' + new DateCalc(date).before());
             }).catch(function (error) {
                 console.log('get ' + hDate + ' data error: ', error);
@@ -93,6 +92,7 @@ const Spider = {
     //文章正文
     article: function (aid, dtime) {
         return dlAPI.getArticle(aid).then(function (article) {
+            var section = article.section || {id: null, name: null};
             var data = {
                 id: aid,
                 title: article.title,

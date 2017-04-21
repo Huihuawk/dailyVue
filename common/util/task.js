@@ -11,9 +11,9 @@ var Task = {
         this.daily();
         this.weekly();
     },
-    // 07:30 - 21:30 每个小时更新最新文章
+    // 00:00 - 23:00 每个小时更新最新文章
     hourly: function () {
-        new CronJob('00 30 7-21/1 * * *', function () {
+        new CronJob('00 00 0-23/1 * * *', function () {
             Spider.latest();
         }, function () {
             logger.info('hourly cron-job over')

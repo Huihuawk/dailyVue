@@ -86,7 +86,7 @@ const Spider = {
             .then(Spider.cmtLong(data.id, data.dtime))
             .then(Spider.cmtShort(data.id, data.dtime))
             .catch(function (e) {
-                tmpDAO.save({aid: '', dtime: data.dtime});
+                tempDAO.save({aid: '', dtime: data.dtime});
                 console.log('day @' + date + ' history data error @id: ' + data.id, e);
                 logger.error('day @' + date + 'history data error @id: ' + data.id, e);
             })
@@ -120,6 +120,10 @@ const Spider = {
                     logger.error('article save error @aid: ' + aid, err);
                 })
         })
+            .catch(function (err) {
+                tempDAO.save({aid: aid, dtime: dtime});
+                logger.error('article save error @id: ' + aid, err);
+            });
     },
     //提出保存历史数据function
     history: function (data) {
@@ -128,6 +132,8 @@ const Spider = {
                 return Promise.resolve({aid: data.id, dtime: data.dtime});
             })
             .catch(function (err) {
+                debugger;
+                tempDAO.save({aid: '', dtime: dtime});
                 logger.error('get history error @id: ' + data.id, err);
             })
     },
@@ -177,6 +183,7 @@ const Spider = {
                     })
             })
             .catch(function (err) {
+                tempDAO.save({aid: aid, dtime: dtime});
                 logger.error('long comments save error @id: ' + aid, err);
             })
     },
@@ -197,6 +204,7 @@ const Spider = {
                         return Promise.resolve({aid: aid, dtime: dtime});
                     })
                     .catch(function (err) {
+                        tempDAO.save({aid: aid, dtime: dtime});
                         logger.error('get cmtShort error @id: ' + aid, err);
                     })
             })

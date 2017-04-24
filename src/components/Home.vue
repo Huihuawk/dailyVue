@@ -3,10 +3,18 @@
         <ul>
             <li v-for="item in latest">
                 <p class="title">
-                    <a v-link="{ path: '/article', query:{ aid: item.id }}">{{item.title}}</a>
+                    <router-link to='/article' query={aid: item.id}> {{item.title}} </router-link>
                 </p>
             </li>
         </ul>
+        <div class="history" v-for="day in history">
+            <p class="dtime">{{day.dtime}}</p>
+            <ul>
+                <li v-for="d in day.data"></li>
+                <img :src="d.image">
+                <a v-link="{ path: '/article', query:{aid: d.id} }">{{ d.title }}</a>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -16,14 +24,11 @@
     Vue.use(vueResource);
 
     export default {
-        el(){
-            return '.home'
-        },
         data(){
             return {
                 latest: {},
+                history: []
             }
-        },
-
+        }
     }
 </script>

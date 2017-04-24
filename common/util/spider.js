@@ -92,7 +92,7 @@ const Spider = {
             })
     },
     //文章正文
-    article: function (aid, dtime) {
+    article: function (aid, dtime, latest) {
         return dlAPI.getArticle(aid).then(function (article) {
             var section = article.section || {id: null, name: null};
             var data = {
@@ -110,7 +110,7 @@ const Spider = {
                 dtime: dtime,
                 dmonth: dtime.substr(0, 6),
                 dyear: dtime.substr(0, 4),
-                latest: latest
+                latest: !!latest
             };
             return articleDAO.save(data)
                 .then(function () {

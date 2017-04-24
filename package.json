@@ -17,6 +17,7 @@
     "express": "~4.15.2",
     "file-stream-rotator": "^0.1.0",
     "jade": "~1.11.0",
+    "lodash": "^4.17.4",
     "mongoose": "^4.9.3",
     "morgan": "~1.8.1",
     "nodejieba": "^2.2.3",

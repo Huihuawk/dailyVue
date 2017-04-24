@@ -53,7 +53,15 @@ TempDAO.prototype = {
                 resolve(result);
             })
         })
-    }
+    },
+    list: function(){
+        return new Promise(function(resolve, reject){
+            Temp.find(function(err, d){
+                resolve && resolve(d);
+            });
+
+        });
+    },
 }
 
 module.exports = TempDAO;

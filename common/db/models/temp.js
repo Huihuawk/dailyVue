@@ -62,6 +62,14 @@ TempDAO.prototype = {
 
         });
     },
+    count: function(query){
+        return new Promise(function(resolve, reject){
+            Temp.count(query, function(err, d){
+                if(err) return reject(err);
+                return resolve(d)
+            })
+        });
+    }
 }
 
 module.exports = TempDAO;

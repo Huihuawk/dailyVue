@@ -34,6 +34,7 @@ var CONFIG = require('./config');
 var spider = require('./common/util/spider');
 var task = require('./common/util/task');
 if (CONFIG.spider.gogo) {
+    spider.latest();
     spider.gogo(CONFIG.spider.start, CONFIG.spider.end);
 }
 if (CONFIG.spider.openTask) {

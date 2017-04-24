@@ -12,7 +12,8 @@ function DateCalc(date, bef, aft) {
 DateCalc.prototype = {
     constructor: DateCalc,
     monthArr: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-    now: function () {
+    now: function (date) {
+        date && (this.date = [date.substr(0, 4), '-', date.substr(4, 2), '-', date.substr(-2)].join(''));
         var d = this.date ? new Date(this.date) : new Date();
         return [d.getFullYear(), this._cover(d.getMonth() + 1), this._cover(d.getDate())].join('');
     },

@@ -12,10 +12,13 @@ Vue.config.debug = true;
 Vue.use(VueRouter);
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  name: 'app',
-  router,
-  template: '<App/>',
-  components: { App }
+const app = new Vue({
+    el: '#app',
+    name: 'app',
+    router,
+    render(h) {
+        return h(App)
+    }
 })
+
+export {app, router}

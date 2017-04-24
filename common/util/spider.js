@@ -27,8 +27,12 @@ const Spider = {
     gogo: function (start, end) {
         historyDAO.count({dtime: start}).then(function (d) {
             console.log(d);
-            start = new DateCalc(start).after();
-            end = new DateCalc(end).after();
+            dateCalculator.now(start);
+            start = dateCalculator.after();
+            dateCalculator.now(end);
+            end = dateCalculator.after();
+            console.log("S",start);
+            console.log("E",end);
             if (d > 0) {
                 return;
             }
@@ -37,8 +41,8 @@ const Spider = {
             var spiderCronJob = new CronJob(interval, function () {
                 if (d == 0) {
                     Spider.day(end);
-                    var dateCalc = new DateCalc(end);
-                    end = dateCalc.after();
+                    dateCalculator.now(end);
+                    end = dateCalculator.after();
                     if (start == end) {
                         setTimeout(function () {
                             Spider.day(end);
@@ -53,7 +57,7 @@ const Spider = {
     },
     //日数据
     day: function (date) {
-        dlAPI.getHistory(date).then(function (history) {
+        return dlAPI.getHistory(date).then(function (history) {
             var hDate = history.date,
                 d = history.stories,
                 promiseAll = [];
@@ -72,9 +76,11 @@ const Spider = {
                 promiseAll.push(p);
             }
             Promise.all(promiseAll).then(function () {
-                logger.info('day history data over @: ' + new DateCalc(date).before());
-            }).catch(function (error) {
-                console.log('get ' + hDate + ' data error: ', error);
+                dateCalculator.now(date);
+                logger.info('day history data over @: ' + dateCalculator.before());
+                return Promise.resolve('day history data over @: ' + dateCalculator.before());
+            }).catch(function (err) {
+                console.log('get ' + hDate + ' data error: ', err);
                 logger.error('get ' + hDate + ' data error: ', err);
             })
         })
@@ -89,6 +95,42 @@ const Spider = {
                 tempDAO.save({aid: '', dtime: data.dtime});
                 console.log('day @' + date + ' history data error @id: ' + data.id, e);
                 logger.error('day @' + date + 'history data error @id: ' + data.id, e);
+            })
+    },
+    dayRefresh: function (dtime) {
+        var query = {dtime: dtime};
+        return tempDAO.count({dtime: dtime})
+            .then(function (d) {
+                console.log(d);
+                console.log("------",query);
+                if (d == 0) {
+                    return Promise.reject('over');
+                } else {
+                    return historyDAO.delete(query)
+                }
+            })
+            .then(function () {
+                return articleDAO.delete(query);
+            })
+            .then(function () {
+                return commentsDAO.delete(query);
+            })
+            .then(function () {
+                return cmtCountDAO.delete(query);
+            })
+            .then(function () {
+                Spider.day(new DateCalc(dtime).after())
+                    .then(function () {
+                        return tempDAO.delete(query);
+                    })
+                    .catch(function (err) {
+                        console.log(new Date() + ' refresh day data error1 ' + err)
+                    })
+            })
+            .catch(function (err) {
+                console.log(new Date() + ' refresh day data error2 ' + err);
+                tempDAO.save({aid: '', dtime: dtime});
+                return Promise.reject(err);
             })
     },
     //文章正文

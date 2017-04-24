@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>data-err</title>
+    <link rel="stylesheet" href="/css/sperr.css">
+</head>
+
+<body>
+<h1>Spider Error List</h1>
+
+<% if(data.length){%>
+<table>
+    <thead>
+    <th>#</th>
+    <th>aid</th>
+    <th>dtime</th>
+    <th>clear</th>
+    </thead>
+    <tbody>
+    <% for (var i=0;i<data.length;i++){ %>
+    <tr>
+        <td><%= i+1  %></td>
+        <td><%= data[i].aid  %></td>
+        <td><%= data[i].dtime  %></td>
+        <td><button data-dtime="<%= data[i].dtime  %>">clear</button></td>
+    </tr>
+    <% } %>
+    </tbody>
+</table>
+<% }else{ %>
+<h3>All Errors Cleared</h3>
+<% } %>
+
+<script src="http://lib.sinaapp.com/js/zepto/1.0rc/zepto.min.js"></script>
+<script>
+    (function(){
+        $('button').on('click', function(){
+            $.ajax({
+                type: 'POST',
+                url: '/clear-error/'+ $(this).attr('data-dtime'),
+                dataType: 'json',
+                success: function(data){
+                    alert(data)
+                    location.reload()
+                }
+            })
+        })
+    })()
+</script>
+</body>
+</html>

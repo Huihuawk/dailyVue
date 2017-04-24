@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var home = require('./../controller/home');
+var spiderErr = require('./../controller/spiderErr');
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
@@ -9,7 +10,7 @@ var home = require('./../controller/home');
 // });
 
 // latest
-router.get('/', home.index);
+router.get('/index', home.index);
 router.get('/latest', home.getLatest);
 router.get('/list', home.list);
 
@@ -26,7 +27,10 @@ router.get('/cmt/count/:aid', home.getCmtcount);
 router.get('/cmt/long/:aid', home.getCmtLong);
 router.get('/cmt/short/:aid', home.getCmtShort);
 
-// router.get('/test', home.test);
+// 处理爬虫错误
+router.get('/spider-error', spiderErr.list);
+router.post('/clear-error/:dtime', spiderErr.clear);
+
 
 
 module.exports = router;

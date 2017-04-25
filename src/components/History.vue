@@ -1,7 +1,7 @@
 <template>
     <section class="history">
         <div class="date" v-if="day.month">
-            <span><i class="m">{{ day.month.substr(0,3) }}</i><i class='d'>{{ day.month.substr(3,2) }}</i></span>
+            <span><i class="m">{{ day.month.substr(0, 3) }}</i><i class='d'>{{ day.month.substr(3, 2) }}</i></span>
 
             <router-link v-if="view" class="day-link" :to="{ path: '/date', query: { dtime: dtime }}">
                 <small>{{ day.date }}</small>

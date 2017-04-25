@@ -1,8 +1,9 @@
 <template>
     <div class="article">
-        <div class="img-wrap" :style="{'background-image':`url(http://ccforward.sinaapp.com/api/proxy.php?url=+${article.image})`}">
+        <div class="img-wrap"
+             :style="{'background-image':`url(http://ccforward.sinaapp.com/api/proxy.php?url=+${article.image})`}">
             <h1>{{ article.title }}</h1>
-            <span>{{  article.imageSource }}</span>
+            <span>{{ article.imageSource }}</span>
             <div class="img-mask"></div>
         </div>
         <article v-html="article.body"></article>
@@ -28,17 +29,17 @@
                 line-height 2em
                 position relative
                 display block
-                padding 20px 45px 20px 20px!important
+                padding 20px 45px 20px 20px !important
                 text-decoration none !important
                 .heading {
                     color #999
-                    font-size 15px!important
+                    font-size 15px !important
                     margin-bottom 8px
                     line-height 1em
                 }
                 .heading-content {
                     color #444
-                    font-size 17px!important
+                    font-size 17px !important
                     line-height 1.2em
                 }
             }
@@ -61,7 +62,7 @@
             bottom 10px
             padding 0 40px
             color #fff
-            text-shadow 0 1px 2px rgba(0,0,0,.3)
+            text-shadow 0 1px 2px rgba(0, 0, 0, .3)
             z-index 1
         }
         .img-wrap {
@@ -77,14 +78,14 @@
                 font-size 12px
                 color rgba(255, 255, 255, 0.6)
                 right 10px
-                text-shadow 0 1px 2px rgba(0,0,0,.3)
+                text-shadow 0 1px 2px rgba(0, 0, 0, .3)
             }
             .img-mask {
                 position absolute
                 top 0
                 width 100%
                 height 100%
-                background linear-gradient(180deg, rgba(0, 0, 0, 0) 65%,rgba(0,0,0,.6))
+                background linear-gradient(180deg, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, .6))
             }
         }
         article {

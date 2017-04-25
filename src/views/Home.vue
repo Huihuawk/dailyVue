@@ -3,7 +3,7 @@
         <ul>
             <li v-for="item in latest">
                 <p class="title">
-                    <router-link to='/article' query={aid: item.id}> {{item.title}} </router-link>
+                    <router-link to='/article' query={aid:  item.id}> {{item.title}} </router-link>
                 </p>
             </li>
         </ul>
@@ -42,7 +42,7 @@
                 opacity 0
             }
         }
-        input{
+        input {
             margin 10px 0
             width 30%
             height 25px
@@ -65,9 +65,11 @@
             text-indent 11px
         }
     }
+
     .statis-link {
         text-align center
     }
+
     .history {
         a {
             display block
@@ -98,11 +100,11 @@
         }
     }
 
-    @keyframes MoreLoadingAnimation{
-        0%{
+    @keyframes MoreLoadingAnimation {
+        0% {
             transform rotate(0deg)
         }
-        to{
+        to {
             transform rotate(360deg)
         }
     }
@@ -114,7 +116,7 @@
     }
 
     @media (max-width: 500px) {
-        .home{
+        .home {
             li .title {
                 font-size 13px
             }

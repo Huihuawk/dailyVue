@@ -2,6 +2,7 @@ var request = require('request');
 var Promise = require('es6-promise').Promise;
 var cheerio = require('cheerio');
 var URL = require('url');
+var _ = require('lodash');
 
 
 var dlAPI = require('../common/api/index-promise');
@@ -85,11 +86,25 @@ var Home = {
             title = param.year.substr(0, 4);
             query = {dyear: title};
         }
-        historyDAO.search(query).then(function (result) {
-            // res.render('list', {'title': '日报' + title, 'list': result});
-            console.log(result);
-            res.json(result);
-        })
+        cmtCountDAO.search(query)
+            .then(function (cmts) {
+                historyDAO.search(query)
+                    .then(function (history) {
+                        var result = [];
+                        _.each(history, function (item) {
+                            _.each(cmts, function (cmt) {
+                                if (cmt.aid = item.id) {
+                                    item.popularity = cmt.popularity;
+                                    item.comments = cmt.comments;
+                                    item.longComments = cmt.longComments;
+                                    item.shortComments = cmt.shortComments;
+                                    result.push(item);
+                                }
+                            })
+                        });
+                        res.json(result);
+                    })
+            })
     },
     list: function (req, res) {
         historyDAO.list().then(function (list) {

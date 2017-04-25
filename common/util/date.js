@@ -8,10 +8,14 @@ function DateCalc(date, bef, aft) {
     }
     this.bef = bef || 0;
     this.aft = aft || 0;
+    this.weekDayArr = ['Sun', 'Mon', 'Tues', 'Wen', 'Thur', 'Fri', 'Sat'];
+    this.weekDayCNArr = ['日', '一', '二', '三', '四', '五', '六'];
+    this.monthArr = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+    this.monthENArr = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 }
 DateCalc.prototype = {
     constructor: DateCalc,
-    monthArr: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
     now: function (date) {
         date && (this.date = [date.substr(0, 4), '-', date.substr(4, 2), '-', date.substr(-2)].join(''));
         var d = this.date ? new Date(this.date) : new Date();
@@ -20,12 +24,31 @@ DateCalc.prototype = {
     before: function (days) {
         return this._calc(days || 1, 'before');
     },
+    beforeCN: function (days) {
+        return this.CN(this._calc(days || 1, 'before'))
+    },
     after: function (days) {
         return this._calc(days || 1, 'after');
+    },
+    afterCN: function (days) {
+        return this.CN(this._calc(days || 1, 'after'))
+    },
+    weekDay: function (dtime) {
+        dtime = dtime ? dtime : this.now();
+        var day = new Date([dtime.substr(0, 4), '-', dtime.substr(4, 2), '-', dtime.substr(-2)].join('')).getDay();
+        return {
+            day: day,
+            en: this.weekDayArr[day],
+            cn: this.weekDayCNArr[day]
+        }
     },
     month: function () {
         var d = this.date ? new Date(this.date) : new Date();
         return [d.getFullYear(), this._cover(d.getMonth() + 1)].join('');
+    },
+    monthEN: function (dtime) {
+        dtime = dtime ? dtime : this.now();
+        return this.monthENArr[parseInt(dtime.substr(4, 2))];
     },
     beforeMonth: function () {
         var y = parseInt(this.month().substr(0, 4), 10),
@@ -50,6 +73,13 @@ DateCalc.prototype = {
             m = this.monthArr[idx + 1];
         }
         return y + '' + m;
+    },
+    CN: function (dtime) {
+        dtime = dtime ? dtime : this.now();
+        var y = dtime.substr(0, 4) + '年',
+            m = dtime.substr(4, 2) + '月',
+            d = dtime.substr(6, 2) + '日';
+        return y + m + d;
     },
     //计算前后的天数
     _calc: function (days, type) {

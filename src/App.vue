@@ -1,9 +1,17 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-link to="/">Go to Home</router-link>
-    <router-link to="/article">Go to Article</router-link>
-    <router-view></router-view>
+    <div class="global-header">
+      <a href="" id="forkme_banner" target="_blank"><span>View on Github</span></a>
+      <div class="wrap">
+        <router-link :to="{path: '/'}">
+          <img src="" alt="logo">
+        </router-link>
+        <p class="power">zzzzzzzzzzzz</p>
+      </div>
+    </div>
+    <transition name="fade" mode="out-in">
+      <router-view class="view"></router-view>
+    </transition>
   </div>
 </template>
 
@@ -12,14 +20,6 @@ export default {
   name: 'app'
 }
 </script>
-
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  @import "../public/css/index/index.css";
 </style>

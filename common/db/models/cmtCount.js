@@ -8,13 +8,13 @@ var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise');
 
 var CmtCountSchema = new Schema({
-    aid: String,
+    aid: {type: String, index: true}, // 索引-单篇文章用
     longComments: Number,
     shortComments: Number,
     popularity: Number,
     comments: Number,
-    dtime: String,
-    dmonth: String,
+    dtime: {type: String, index: true}, // 索引-历史记录用
+    dmonth: {type: String, index: true}, // 索引-统计用
     dyear: String
 });
 

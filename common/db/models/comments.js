@@ -11,7 +11,7 @@ var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise');
 
 var CommentsSchema = new Schema({
-    aid: String,
+    aid: { type: String, index: true },
     comments: Array,
     type: Number,
     dtime: String,

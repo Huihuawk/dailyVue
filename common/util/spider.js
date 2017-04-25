@@ -65,7 +65,7 @@ const Spider = {
                 var data = {
                     id: d[i].id,
                     title: d[i].title,
-                    image: d[i].images.length ? d[i].images[0] : '',
+                    image: d[i].images ? d[i].images[0] : '',
                     theme: d[i].theme ? d[i].theme.id : 0,
                     type: d[i].type || '0',
                     dtime: hDate,

@@ -3,7 +3,7 @@ var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise').Promise;
 
 var ArticleSchema = new Schema({
-    id: String,
+    id: { type: String, index: true },
     title: String,
     body: String,
     image: String,
@@ -16,7 +16,8 @@ var ArticleSchema = new Schema({
     sectionName: String,
     dtime: String,
     dmonth: String,
-    dyear: String
+    dyear: String,
+    latest: Boolean
 });
 
 var ArticleDAO = function () {

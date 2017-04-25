@@ -31,5 +31,8 @@ module.exports = {
         start: '20170420',
         end: '20170418',
         interval: 20,
+    },
+    fe: {
+        developing: true
     }
 };

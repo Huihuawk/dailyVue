@@ -3,11 +3,11 @@ var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise');
 
 var HistoryScheme = new Schema({
-    id: String,
+    id:  { type: String, index: true },
     title: String,
     image: String,
     type: String,
-    dtime: String,
+    dtime: { type: String, index: true },
     dmonth: String,
     dyear: String
 });

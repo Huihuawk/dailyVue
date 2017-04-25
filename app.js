@@ -9,28 +9,35 @@ var log4js = require('log4js');
 var fs = require('fs');
 
 var routes = require('./routes/index');
+const CONFIG = require('./config');
 
-//webpack
-//中间件API使用文档 https://webpack.github.io/docs/webpack-dev-middleware.html
-// var webpackConfig = process.env.NODE_ENV === 'testing'
-//     ? require('./build/webpack.prod.conf')
-//     : require('./build/webpack.dev.conf');
-// var webpack = require('webpack');
-// var webpackDevMiddleware = require('webpack-dev-middleware');
-// var compiler = webpack(webpackConfig);
-// var devMiddleware = webpackDevMiddleware(compiler, {
-//     publicPath: webpackConfig.output.publicPath,
-//     stats: {
-//         colors: true,
-//         chunks: true,
-//         progress: true
-//     }
-// });
-// var hotMiddleware = require('webpack-hot-middleware')(compiler);
+const app = express();
+
+
+// webpack
+// 中间件API使用文档 https://webpack.github.io/docs/webpack-dev-middleware.html
+
+if(CONFIG.fe.developing){
+    require("nodejs-dashboard");
+    var webpackConfig = require('./build/webpack.dev.conf');
+    var webpack = require('webpack');
+    var webpackDevMiddleware = require('webpack-dev-middleware');
+    var compiler = webpack(webpackConfig);
+    var devMiddleware = webpackDevMiddleware(compiler, {
+        publicPath: webpackConfig.output.publicPath,
+        stats: {
+            colors: true,
+            chunks: true,
+            progress: true
+        }
+    });
+    var hotMiddleware = require('webpack-hot-middleware')(compiler);
+    app.use(devMiddleware);
+    app.use(hotMiddleware);
+}
 
 
 // 每天23点爬知乎日报的latest并存储
-var CONFIG = require('./config');
 var spider = require('./common/util/spider');
 var task = require('./common/util/task');
 if (CONFIG.spider.gogo) {
@@ -41,12 +48,6 @@ if (CONFIG.spider.openTask) {
     spider.latest();
     task.gogo();
 }
-
-var app = express();
-
-//webpack Middleware
-// app.use(devMiddleware);
-// app.use(hotMiddleware);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

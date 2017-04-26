@@ -7,8 +7,13 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
+        loadingDay: false,
+        date: new DateCalc().now(),
         latest: [],
-        article: {}
+        day: [],
+        oneday: {},
+        article: {},
+        comments: []
     },
     scrollBehavior: (to, from, savedPosition) => {
         if (savedPosition) {
@@ -28,14 +33,28 @@ const store = new Vuex.Store({
         FETCH_LATEST ({commit, state}) {
             return api.fetchLatest()
                 .then(({data}) => {
-                    commit('SET_LATEST', [data])
+                    commit('SET_LATEST', data)
                 })
         },
         FETCH_ARTICLE ({commit, state}, aid) {
-            return api.fetchArticle()
+            return api.fetchArticle(aid)
                 .then(({data}) => {
-                    commit('SET_ARTICLE', [data])
+                    commit('SET_ARTICLE', data)
                 })
+        },
+        FETCH_HISTORY ({commit, state}, dtime) {
+            if (!state.loadingDay) {
+                state.loadingDay = true;
+                return api.fetchHistory(dtime)
+                    .then(({data}) => {
+                        state.loadingDay = false;
+                        console.log("fffffffffffffff", data);
+                        commit('SET_HISTORY', data)
+                    })
+                    .catch(() => {
+                        state.loadingDay = false
+                    })
+            }
         }
     },
     //更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
@@ -45,6 +64,17 @@ const store = new Vuex.Store({
         },
         SET_ARTICLE (state, data) {
             state.article = data;
+        },
+        SET_HISTORY (state, data) {
+            console.log("hhhhhhhhhhhhhh", data);
+            if (data.length) {
+                const day = {
+                    month: new DateCalc().monthEN(data[0].dtime) + data[0].dtime.substr(6, 2),
+                    date: new DateCalc().CN(data[0].dtime),
+                    data: data
+                };
+                state.day.push(day)
+            }
         }
     }
 })

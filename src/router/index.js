@@ -26,6 +26,14 @@ export default new Router({
             meta: {
                 scrollToTop: true
             }
+        },
+        {
+            name: 'top-detail',
+            path: '/top-detail',
+            component: Detail,
+            meta: {
+                scrollToTop: true
+            }
         }
     ]
 })

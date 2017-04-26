@@ -3,15 +3,21 @@
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
-import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
 import router from './router/index'
+import lazy from 'vue-lazy-image'
+import * as filters from './filters'
 
 Vue.config.productionTip = false;
 
 Vue.config.debug = true;
 
-Vue.use(VueRouter);
+//数据过滤器
+Object.keys(filters).forEach(key => {
+    Vue.filter(key, filters[key])
+});
+
+Vue.use(lazy);
 sync(store, router);
 
 /* eslint-disable no-new */

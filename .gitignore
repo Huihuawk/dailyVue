@@ -6,5 +6,5 @@ node_modules/
 *.DS_Store
 log
 .idea/
-base.less
-base.css
+public/css/index/base.less
+public/css/index/base.css

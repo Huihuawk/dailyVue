@@ -1,7 +1,6 @@
 <template>
     <div class="home">
 
-
         <Latest :data="latest"></Latest>
 
         <div>

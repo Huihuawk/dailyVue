@@ -54,6 +54,12 @@ const store = new Vuex.Store({
                         state.loadingDay = false
                     })
             }
+        },
+        FETCH_COMMENT ({commit, state}, aid){
+            return api.fetchComment(aid)
+                .then(({data}) => {
+                    commit('SET_COMMENT', data)
+                })
         }
     },
     //更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
@@ -73,8 +79,11 @@ const store = new Vuex.Store({
                 };
                 state.day.push(day)
             }
+        },
+        SET_COMMENT (state, data) {
+            state.comments = data;
         }
     }
-})
+});
 
 export default store;

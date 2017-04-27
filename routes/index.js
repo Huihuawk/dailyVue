@@ -22,6 +22,8 @@ router.get('/month/:month', home.searchByDate);
 router.get('/article/:aid', home.getArticle);
 
 // comments
+router.get('/article/:aid/comments', home.getComment);
+
 router.get('/cmt/count/:aid', home.getCmtcount);
 router.get('/cmt/long/:aid', home.getCmtLong);
 router.get('/cmt/short/:aid', home.getCmtShort);

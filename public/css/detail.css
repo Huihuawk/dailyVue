@@ -1,0 +1,21 @@
+.btn-default {
+  padding: 7px 14px;
+  border: 1px solid #e67e22;
+  background: #e67e22;
+  color: #ffffff !important;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.btn-default:hover {
+  border: 1px solid #303030;
+  background: #303030;
+  color: #ffffff;
+}
+.btn-default:focus {
+  outline: none;
+}
+.go-home {
+  text-align: right;
+  margin-top: 15px;
+}

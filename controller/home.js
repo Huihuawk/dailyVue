@@ -48,6 +48,16 @@ var Home = {
             });
         }
     },
+    getComment: function(req, res){
+        var aid = req.params.aid;
+        if(aid) {
+            commentsDAO.search({aid:aid}).then(function(result){
+                res.json(result);
+            });
+        }else {
+            res.json([]);
+        }
+    },
     getCmtcount: function (req, res) {
         var aid = req.params.aid;
         if (aid) {

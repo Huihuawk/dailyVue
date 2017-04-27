@@ -12,10 +12,6 @@ export const fetchArticle = aid => {
     return axios.get(`/article/${aid}`)
 }
 
-export const fetchComments = aid => {
+export const fetchComment = aid => {
     return axios.get(`/article/${aid}/comments`)
-}
-
-export const fetchAPIComments = aid => {
-    return axios.get(`/article/${aid}/comments/api`)
 }

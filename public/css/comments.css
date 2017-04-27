@@ -1,0 +1,65 @@
+.article-comments {
+  margin-bottom: 20px;
+}
+.article-comments .item {
+  display: flex;
+  padding: 15px 0 10px;
+  border-top: 1px solid #ccc;
+}
+.article-comments .avatar {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+.article-comments img {
+  width: 100%;
+  border-radius: 5%;
+}
+.article-comments p {
+  margin: 0;
+}
+.article-comments .content {
+  flex: 1;
+}
+.article-comments .author {
+  margin-bottom: 10px;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+.article-comments .author span {
+  float: right;
+  color: #888;
+  font-size: 13px;
+  font-weight: normal;
+}
+.article-comments .author span.hot {
+  color: #e67e22;
+  font-weight: bold;
+}
+.article-comments .author span .icon {
+  margin-right: 5px;
+  width: 13px;
+  height: 13px;
+}
+.article-comments .cmt {
+  margin-bottom: 5px;
+  font-size: 13px;
+  color: #333;
+}
+.article-comments .date {
+  float: right;
+  font-size: 12px;
+  color: #bbb;
+}
+.article-comments .reply {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+.article-comments .reply span {
+  font-weight: bold;
+  color: #333;
+}

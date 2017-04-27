@@ -15,9 +15,8 @@ router.get('/latest', home.getLatest);
 router.get('/list', home.list);
 
 //date
-router.get('/d/:day', home.searchByDate);
-router.get('/m/:month', home.searchByDate);
-router.get('/y/:year', home.searchByDate);
+router.get('/day/:day', home.searchByDate);
+router.get('/month/:month', home.searchByDate);
 
 // detail
 router.get('/article/:aid', home.getArticle);

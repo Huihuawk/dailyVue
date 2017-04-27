@@ -43,7 +43,7 @@ const Spider = {
                     Spider.day(end);
                     dateCalculator.now(end);
                     end = dateCalculator.after();
-                    if (start == end) {
+                    if (start === end) {
                         setTimeout(function () {
                             Spider.day(end);
                         }, CONFIG.spider.interval * 1000);
@@ -103,7 +103,7 @@ const Spider = {
             .then(function (d) {
                 console.log(d);
                 console.log("------",query);
-                if (d == 0) {
+                if (d === 0) {
                     return Promise.reject('over');
                 } else {
                     return historyDAO.delete(query)
@@ -184,13 +184,14 @@ const Spider = {
         return dlAPI.getCmtcount(aid)
             .then(function (count) {
                 var data = {
-                    id: aid,
-                    longComments: count.longComments ? count.longComments : 0,
-                    shortComments: count.shortComments ? count.shortComments : 0,
-                    comments: count.comments ? count.comments : 0,
+                    aid: aid,
+                    comments: count.comments || 0,
+                    longComments: count.long_comments || 0,
+                    shortComments: count.short_comments || 0,
+                    popularity: count.popularity || 0,
                     dtime: dtime,
-                    dmonth: dtime.substr(0, 6),
-                    dyear: dtime.substr(0, 4)
+                    dmonth: dtime.substr(0,6),
+                    dyear: dtime.substr(0,4)
                 };
                 return cmtCountDAO.save(data)
                     .then(function () {

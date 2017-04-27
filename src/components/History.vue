@@ -34,7 +34,12 @@
 <script>
     export default {
         name: 'history-item',
-        props: ['day']
+        props: ['day', 'view'],
+        computed: {
+            dtime() {
+                return this.$route.query.dtime
+            }
+        }
     }
 </script>
 

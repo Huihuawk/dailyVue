@@ -1,10 +1,14 @@
 <template>
     <div class="home">
+
+
         <Latest :data="latest"></Latest>
 
-        <template v-for="item in histories">
-            <History :day="item"></History>
-        </template>
+        <div>
+            <template v-for="item in this.$store.state.day">
+                <History :day="item"></History>
+            </template>
+        </div>
 
         <i class="loading"><span>Previous Day</span></i>
     </div>
@@ -25,6 +29,39 @@
             return store.dispatch('FETCH_HISTORY', dtime)
         }
     };
+    
+    const throttle = function (func, wait, options) {
+        var context, args, result;
+        var timeout = null;
+        var previous = 0;
+        if (!options) options = {};
+        var later = function() {
+            previous = options.leading === false ? 0 : new Date().getTime();
+            timeout = null;
+            result = func.apply(context, args);
+            if (!timeout) context = args = null;
+        };
+        return function() {
+            var now = new Date().getTime();
+            if (!previous && options.leading === false) previous = now;
+            var remaining = wait - (now - previous);
+            context = this;
+            args = arguments;
+            if (remaining <= 0 || remaining > wait) {
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = null;
+                }
+                previous = now;
+                result = func.apply(context, args);
+                if (!timeout) context = args = null;
+            } else if (!timeout && options.trailing !== false) {
+                timeout = setTimeout(later, remaining);
+            }
+            return result;
+        };
+    };
+    
 
     export default {
         name: 'home',
@@ -74,18 +111,18 @@
                 return data
             },
             histories() {
-                console.log("hHHHHHHHHHHHHHH", this.$store.state.day);
+                console.log("!!!!!!!!!!!!!!!!!!!!!",this.$store.state.day);
                 return this.$store.state.day
             }
         },
         //实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算， watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。
-//        created(){
-//            this.scrollEvent = throttle(e => {
-//                if (window.innerHeight + document.body.scrollTop + 150 >= document.body.offsetHeight) {
-//                    this.previousDay()
-//                }
-//            }, 200)
-//        },
+        created(){
+            this.scrollEvent = throttle(e => {
+                if (window.innerHeight + document.body.scrollTop + 150 >= document.body.offsetHeight) {
+                    this.previousDay()
+                }
+            }, 200)
+        },
         //在挂载开始之前被调用：相关的 render 函数首次被调用
         beforeMount () {
             if (this.histories.length === 0) {

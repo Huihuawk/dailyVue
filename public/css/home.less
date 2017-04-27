@@ -25,46 +25,6 @@ a {
       background-size: 100%
     }
   }
-  button {
-    position: relative;
-    display: block;
-    margin: 20px auto;
-    height: 100px;
-    width: 100px;
-    border: 0;
-    outline: none;
-    color: #42b983;
-    border-radius: 50%;
-    background: #fff;
-    cursor: pointer;
-    &::before,
-    &::after {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100px;
-      width: 100px;
-      border-radius: 50%;
-      border: 2px solid;
-      box-sizing: border-box;
-      content: '';
-    }
-    &::before {
-      border-color: #c7c7c7
-    }
-    &::after {
-      border-radius: 50%;
-      border: 4px solid;
-      box-sizing: border-box;
-      content: '';
-      left: 0;
-      position: absolute;
-      top: 0;
-      animation: MoreLoadingAnimation 2s infinite ease;
-      border-color: #42b983 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-      transform-origin: 50%;
-    }
-  }
 }
 
 @media only screen and (max-width: 767px) {

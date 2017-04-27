@@ -36,7 +36,8 @@
                     <div class="widget">
                         <h4 class="title">Code</h4>
                         <div class="content community">
-                            <a href="https://github.com/Huihuawk/dailyVue" class="btn btn-default btn-block" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', 'View on Github'])">View on Github</a>
+                            <p>Power by Vue & Node.</p>
+                            <a href="https://github.com/Huihuawk/dailyVue" class="btn btn-default btn-block">View on Github</a>
                         </div>
                     </div>
                 </div>

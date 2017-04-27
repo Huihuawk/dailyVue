@@ -93,7 +93,7 @@ var Home = {
                         var result = [];
                         _.each(history, function (item) {
                             _.each(cmts, function (cmt) {
-                                if (cmt.aid = item.id) {
+                                if (cmt.aid === item.id) {
                                     item.popularity = cmt.popularity;
                                     item.comments = cmt.comments;
                                     item.longComments = cmt.longComments;

@@ -48,7 +48,6 @@ const store = new Vuex.Store({
                 return api.fetchHistory(dtime)
                     .then(({data}) => {
                         state.loadingDay = false;
-                        console.log("fffffffffffffff", data);
                         commit('SET_HISTORY', data)
                     })
                     .catch(() => {
@@ -66,7 +65,6 @@ const store = new Vuex.Store({
             state.article = data;
         },
         SET_HISTORY (state, data) {
-            console.log("hhhhhhhhhhhhhh", data);
             if (data.length) {
                 const day = {
                     month: new DateCalc().monthEN(data[0].dtime) + data[0].dtime.substr(6, 2),

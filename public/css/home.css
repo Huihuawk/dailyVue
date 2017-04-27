@@ -23,46 +23,6 @@ a {
   height: 90px;
   background-size: 100%;
 }
-.history button {
-  position: relative;
-  display: block;
-  margin: 20px auto;
-  height: 100px;
-  width: 100px;
-  border: 0;
-  outline: none;
-  color: #42b983;
-  border-radius: 50%;
-  background: #fff;
-  cursor: pointer;
-}
-.history button::before,
-.history button::after {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100px;
-  width: 100px;
-  border-radius: 50%;
-  border: 2px solid;
-  box-sizing: border-box;
-  content: '';
-}
-.history button::before {
-  border-color: #c7c7c7;
-}
-.history button::after {
-  border-radius: 50%;
-  border: 4px solid;
-  box-sizing: border-box;
-  content: '';
-  left: 0;
-  position: absolute;
-  top: 0;
-  animation: MoreLoadingAnimation 2s infinite ease;
-  border-color: #42b983 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-  transform-origin: 50%;
-}
 @media only screen and (max-width: 767px) {
   .history li .title {
     display: inline-block;

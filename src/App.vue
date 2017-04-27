@@ -43,12 +43,23 @@
                 </div>
             </div>
         </section>
+        <a href="#" id="back-to-top" style="display: inline;" v-on:click="up"><i class="fa">↑</i></a>
     </div>
 </template>
 
 <script>
+    import Vue from 'vue'
     export default {
-        name: 'app'
+        name: 'app',
+        methods: {
+            up: function (e) {
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 1000);
+                return false;
+            }
+        }
     }
 </script>
 <style>

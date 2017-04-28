@@ -3,11 +3,9 @@
 
         <Latest :data="latest"></Latest>
 
-        <div>
-            <template v-for="item in this.$store.state.day">
-                <History :day="item"></History>
-            </template>
-        </div>
+        <template v-for="item in this.$store.state.day">
+            <History :day="item"></History>
+        </template>
 
         <i class="loading"><span>Previous Day</span></i>
     </div>
@@ -28,19 +26,19 @@
             return store.dispatch('FETCH_HISTORY', dtime)
         }
     };
-    
+
     const throttle = function (func, wait, options) {
         var context, args, result;
         var timeout = null;
         var previous = 0;
         if (!options) options = {};
-        var later = function() {
+        var later = function () {
             previous = options.leading === false ? 0 : new Date().getTime();
             timeout = null;
             result = func.apply(context, args);
             if (!timeout) context = args = null;
         };
-        return function() {
+        return function () {
             var now = new Date().getTime();
             if (!previous && options.leading === false) previous = now;
             var remaining = wait - (now - previous);
@@ -60,7 +58,7 @@
             return result;
         };
     };
-    
+
 
     export default {
         name: 'home',
@@ -110,7 +108,6 @@
                 return data
             },
             histories() {
-                console.log("!!!!!!!!!!!!!!!!!!!!!",this.$store.state.day);
                 return this.$store.state.day
             }
         },
@@ -162,5 +159,5 @@
 </script>
 
 <style scoped>
- @import "../../public/css/home.css";
+    @import "../../public/css/home.css";
 </style>

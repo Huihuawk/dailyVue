@@ -22,6 +22,7 @@ a {
   width: 90px;
   height: 90px;
   background-size: 100%;
+  border-radius: 5%;
 }
 @media only screen and (max-width: 767px) {
   .history li .title {

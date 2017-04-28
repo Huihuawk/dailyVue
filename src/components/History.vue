@@ -3,11 +3,11 @@
         <div class="date" v-if="day.month">
             <span><i class="m">{{ day.month.substr(0, 3) }}</i><i class='d'>{{ day.month.substr(3, 2) }}</i></span>
 
-            <router-link v-if="view" class="day-link" :to="{ path: '/date', query: { dtime: dtime }}">
+            <router-link v-if="view" class="day-link" :to="{ path: '/the-day', query: { dtime: dtime }}">
                 <small>{{ day.date }}</small>
             </router-link>
 
-            <router-link v-else class="day-link" :to="{ path: '/date', query: { dtime: day.data[0].dtime }}">
+            <router-link v-else class="day-link" :to="{ path: '/the-day', query: { dtime: day.data[0].dtime }}">
                 <small>{{ day.date }}</small>
             </router-link>
         </div>

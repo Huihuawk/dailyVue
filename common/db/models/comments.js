@@ -48,8 +48,6 @@ CommentsDAO.prototype = {
             Comments.find(query, function (err, data) {
                 if (err) return reject(err);
                 var result = [];
-                console.log("data", data);
-                console.log("id", query);
                 if (data.length) {
                     for (let i = 0; i < data.length; i++) {
                         var d = {

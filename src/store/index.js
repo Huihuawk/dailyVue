@@ -11,7 +11,7 @@ const store = new Vuex.Store({
         date: new DateCalc().now(),
         latest: [],
         day: [],
-        oneday: {},
+        theday: {},
         article: {},
         comments: []
     },
@@ -60,7 +60,13 @@ const store = new Vuex.Store({
                 .then(({data}) => {
                     commit('SET_COMMENT', data)
                 })
-        }
+        },
+        FETCH_THEDAY ({ commit, state }, dtime) {
+            return api.fetchHistory(dtime)
+                .then(({data}) => {
+                    commit('SET_THEDAY', data)
+                })
+        },
     },
     //更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
     mutations: {
@@ -82,6 +88,24 @@ const store = new Vuex.Store({
         },
         SET_COMMENT (state, data) {
             state.comments = data;
+        },
+        SET_THEDAY (state, data) {
+            if(data.length){
+                state.theday.data = [];
+                state.theday = {
+                    month: new DateCalc().monthEN(data[0].dtime) + data[0].dtime.substr(6,2),
+                    date: new DateCalc().CN(data[0].dtime),
+                    data: data
+                }
+            }else {
+                const dtime = state.route.query.dtime;
+                if(dtime){
+                    const date = new DateCalc(state.route.query.dtime);
+                    state.theday.data = [];
+                    state.theday.month = date.monthEN() + dtime.substr(6,2);
+                    state.theday.date = date.CN();
+                }
+            }
         }
     }
 });

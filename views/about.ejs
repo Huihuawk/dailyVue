@@ -1,0 +1,57 @@
+<%- include("./common/header.ejs") %>
+
+<link rel="stylesheet" href="/css/index/base.css">
+<link rel="stylesheet" href="/css/about.css">
+
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>「Stay Hungry, Stay Foolish.」</h1>
+                <h2>饥渴求知，虚怀若愚</h2>
+            </div>
+        </div>
+    </div>
+</header>
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="main-menu">
+                    <ul class="menu">
+                        <li role="presentation"><a href="/" target="_self">首页</a></li>
+                        <li role="presentation"><a href="/statistics">数据统计</a></li>
+                        <li class="nav-current" role="presentation"><a href="/about" target="_self">关于</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section>
+    <div style="height: 800px">11</div>
+</section>
+
+
+<a href="#" id="back-to-top" style="display: inline;" onclick="backToTop();"><i class="fa">↑</i></a>
+
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    const backToTop = function() {
+        $(window).scroll(function(){
+            if ($(this).scrollTop() > 100) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+        $('#back-to-top').on('click', function(e){
+            e.preventDefault();
+            $('html, body').animate({scrollTop : 0},1000);
+            return false;
+        });
+    }
+    $(document).ready(backToTop());
+</script>
+<%- include("./common/footer.ejs") %>

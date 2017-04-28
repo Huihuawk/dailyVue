@@ -28,6 +28,12 @@ router.get('/cmt/count/:aid', home.getCmtcount);
 router.get('/cmt/long/:aid', home.getCmtLong);
 router.get('/cmt/short/:aid', home.getCmtShort);
 
+// about
+router.get('/about', function(req, res) {
+    res.render('about',{title: 'About'});
+});
+
+
 // 处理爬虫错误
 router.get('/spider-error', spiderErr.list);
 router.post('/clear-error/:dtime', spiderErr.clear);

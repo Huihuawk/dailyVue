@@ -8,7 +8,7 @@ var FileStreamRotator = require('file-stream-rotator');
 var log4js = require('log4js');
 var fs = require('fs');
 
-var routes = require('./routes/index');
+const routes = require('./routes/index');
 const CONFIG = require('./config');
 
 const app = express();

@@ -18,7 +18,7 @@
                             <ul class="menu">
                                 <li class="nav-current" role="presentation"><a href="/" target="_self">首页</a></li>
                                 <li role="presentation"><a href="/statistics">数据统计</a></li>
-                                <li role="presentation"><a href="/about">关于</a></li>
+                                <li role="presentation"><a href="/about" target="_self">关于</a></li>
                             </ul>
                         </div>
                     </div>
@@ -40,10 +40,17 @@
                             <a href="https://github.com/Huihuawk/dailyVue" class="btn btn-default btn-block">View on Github</a>
                         </div>
                     </div>
+                    <div class="widget">
+                        <h4 class="title">Error Hanldling</h4>
+                        <div class="content community">
+                            <p>Data error hanldling.</p>
+                            <a href="/spider-error" class="btn btn-default btn-block">Error Hanldling</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-        <a href="#" id="back-to-top" style="display: inline;" v-on:click="up"><i class="fa">↑</i></a>
+        <a href="#" id="back-to-top" style="display: inline;" @click="up"><i class="fa">↑</i></a>
     </div>
 </template>
 
@@ -58,7 +65,19 @@
                     scrollTop: 0
                 }, 1000);
                 return false;
+            },
+            backToTop: function () {
+                $(window).scroll(function(){
+                    if ($(this).scrollTop() > 100) {
+                        $('#back-to-top').fadeIn();
+                    } else {
+                        $('#back-to-top').fadeOut();
+                    }
+                });
             }
+        },
+        mounted () {
+            this.backToTop();
         }
     }
 </script>

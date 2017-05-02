@@ -32,7 +32,7 @@ if (isStatis) {
 }
 module.exports = {
   entry: {
-    // app: ['webpack/hot/dev-server', path.join(__dirname, '../src/statis-month.js')],
+    // app: ['webpack/hot/dev-server', path.join(__dirname, '../src/statis-month.statis')],
     month: path.join(__dirname, '../src/statis-month.js'),
     year: path.join(__dirname, '../src/statis-year.js')
   },

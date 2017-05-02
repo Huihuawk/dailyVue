@@ -1,5 +1,74 @@
 <%- include("./common/header.ejs") %>
+<link rel="stylesheet" href="/css/index/base.css">
+<link rel="stylesheet" href="/css/statis.css">
 
-<h1>知乎日报 每年文章数据统计</h1>
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>ECharts 3</h1>
+                <h2>Above all else show the data.</h2>
+            </div>
+        </div>
+    </div>
+</header>
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="main-menu">
+                    <ul class="menu">
+                        <li role="presentation"><a href="/" target="_self">首页</a></li>
+                        <li class="nav-current" role="presentation"><a href="/statis">数据统计</a></li>
+                        <li role="presentation"><a href="/about" target="_self">关于</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
 
+<section>
+    <div class="container">
+        <div class="panel panel-body">
+            <div class="widget">
+                <h4 class="title">文章数据统计</h4>
+                <div class="content community">
+                    <div class="col-md-6">
+                        <div class="col-md-8">
+                            <div id="shut-cuts"></div>
+                        </div>
+                        <div class="col-md-4"><p>YEAR</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">月</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<a href="#" id="back-to-top" onclick="backToTop();"><i class="fa">↑</i></a>
+
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="../statis/years.js"></script>
+
+<script>
+    const backToTop = function () {
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 100) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+        $('#back-to-top').on('click', function (e) {
+            e.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 1000);
+            return false;
+        });
+    }
+    $(document).ready(backToTop());
+</script>
 <%- include("./common/footer.ejs") %>

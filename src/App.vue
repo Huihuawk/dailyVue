@@ -50,7 +50,7 @@
                 </div>
             </div>
         </section>
-        <a href="#" id="back-to-top" style="display: inline;" @click="up"><i class="fa">↑</i></a>
+        <a href="#" id="back-to-top" @click="up"><i class="fa">↑</i></a>s
     </div>
 </template>
 

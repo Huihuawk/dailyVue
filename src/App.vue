@@ -17,7 +17,7 @@
                         <div id="main-menu">
                             <ul class="menu">
                                 <li class="nav-current" role="presentation"><a href="/" target="_self">首页</a></li>
-                                <li role="presentation"><a href="/statistics">数据统计</a></li>
+                                <li role="presentation"><a href="/statis">数据统计</a></li>
                                 <li role="presentation"><a href="/about" target="_self">关于</a></li>
                             </ul>
                         </div>

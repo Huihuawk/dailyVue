@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var home = require('./../controller/home');
+var statis = require('./../controller/statis');
 var spiderErr = require('./../controller/spiderErr');
 
 /* GET home page. */
@@ -32,6 +33,9 @@ router.get('/cmt/short/:aid', home.getCmtShort);
 router.get('/about', function(req, res) {
     res.render('about',{title: 'About'});
 });
+
+// statistic
+router.get('/statis', statis.index);
 
 
 // 处理爬虫错误

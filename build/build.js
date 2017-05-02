@@ -8,7 +8,8 @@ var path = require('path')
 var chalk = require('chalk')
 var webpack = require('webpack')
 var config = require('../config')
-var webpackConfig = require('./webpack.prod.conf')
+var isStatis = !!(process.argv[2] == 'statis');
+var webpackConfig = isStatis ? require('./webpack.statis.conf') : require('./webpack.prod.conf')
 
 var spinner = ora('building for production...')
 spinner.start()

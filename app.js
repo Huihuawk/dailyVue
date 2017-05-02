@@ -49,6 +49,10 @@ if (CONFIG.spider.openTask) {
     task.gogo();
 }
 
+//statistic
+var statistic = require('./statistic');
+// statistic.start('201703', '201704');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

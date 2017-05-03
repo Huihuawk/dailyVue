@@ -36,6 +36,10 @@ router.get('/about', function(req, res) {
 
 // statistic
 router.get('/statis', statis.index);
+// statistic api
+router.get('/api-statis/month/:dmonth', statis.searchByDate);
+router.get('/api-statis/year/:dyear', statis.searchByDate);
+router.get('/api-statis/articles/:aids', statis.searchArticles);
 
 
 // 处理爬虫错误

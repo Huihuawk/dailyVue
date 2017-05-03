@@ -8,7 +8,7 @@ const renderCharts = () => {
     const shutCuts = echarts.init($('#shut-cuts'));
     shutCuts.setOption({
         title: {
-            text: '年数据分析'
+            text: '年数据统计'
         },
         tooltip: {
             trigger: 'axis'

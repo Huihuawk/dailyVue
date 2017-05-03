@@ -1,6 +1,7 @@
 <%- include("./common/header.ejs") %>
 <link rel="stylesheet" href="/css/index/base.css">
 <link rel="stylesheet" href="/css/statis.css">
+<link rel="stylesheet" href="/statis/yearAll.css">
 
 <header class="main-header">
     <div class="container">
@@ -30,18 +31,20 @@
 
 <section>
     <div class="container">
+        <div class="panel-head">
+            <ul>
+                <li class="panel panel-body panel-year">1</li>
+                <li class="panel panel-body panel-year">2</li>
+                <li class="panel panel-body panel-year">3</li>
+                <li class="panel panel-body panel-year">4</li>
+                <li class="panel panel-body panel-year" style="margin-right: 0">5</li>
+            </ul>
+        </div>
         <div class="panel panel-body">
             <div class="widget">
                 <h4 class="title">文章数据统计</h4>
                 <div class="content community">
-                    <div class="col-md-6">
-                        <div class="col-md-8">
-                            <div id="shut-cuts"></div>
-                        </div>
-                        <div class="col-md-4"><p>YEAR</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">月</div>
+                    <div id="shut-cuts"></div>
                 </div>
             </div>
         </div>
@@ -52,7 +55,8 @@
 <a href="#" id="back-to-top" onclick="backToTop();"><i class="fa">↑</i></a>
 
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="../statis/years.js"></script>
+<script src="/statis/vendor.js"></script>
+<script src="/statis/yearAll.bundle.js"></script>
 
 <script>
     const backToTop = function () {

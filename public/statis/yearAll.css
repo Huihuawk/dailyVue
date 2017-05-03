@@ -1,0 +1,13 @@
+#shut-cuts {
+  width: 1108px;
+  height: 260px;
+}
+.panel-head {
+  margin-bottom: 15px;
+}
+.panel-head .panel-year {
+  margin-right: 18px;
+  display: inline-block;
+  width: 210px;
+  height: 160px;
+}

@@ -1,4 +1,3 @@
-require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
 
@@ -7,7 +6,7 @@ var rm = require('rimraf')
 var path = require('path')
 var chalk = require('chalk')
 var webpack = require('webpack')
-var config = require('../config')
+var config = require('./config')
 var isStatis = !!(process.argv[2] == 'statis');
 var webpackConfig = isStatis ? require('./webpack.statis.conf') : require('./webpack.prod.conf')
 

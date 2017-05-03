@@ -153,13 +153,13 @@ const renderArticles = (articles, type) => {
     $next.setAttribute('href',`/statistics/month/${date.afterMonth()}`)
     $next.innerHTML = `查看 ${date.afterMonth()} 数据统计`
     let statisData = starData;
-    if(type == 'comment'){
+    if(type === 'comment'){
         statisData = cmtData;
     }
     statisData.article = [];
     for(let j=0,length=statisData.aids.length;j<length;j++){
         for(let i=0,len=articles.length;i<len;i++){
-            if(statisData.aids[j] == articles[i].id){
+            if(statisData.aids[j] === articles[i].id){
                 statisData.article.push(articles[i])
             }
         }
@@ -168,7 +168,7 @@ const renderArticles = (articles, type) => {
     for(let i=0,len=statisData.article.length;i<len;i++){
         dom += `<li><i>[${statisData.count[i]}]</i> <a href="/#/detail?aid=${statisData.article[i].id}">${statisData.article[i].title}</a> - <a href="/#/date?dtime=${statisData.article[i].dtime}">${statisData.article[i].dtime}</a></li>`
     }
-    if(type == 'comment'){
+    if(type === 'comment'){
         $('.comment-top').innerHTML = dom;
     }else {
         $('.star-top').innerHTML = dom;
@@ -191,7 +191,7 @@ fetch(`/api-statis/month/${MonthData}`)
     })
     .then(function(json){
         if(json.length){
-            if(json[0].type == 'star'){
+            if(json[0].type === 'star'){
                 starData = json[0];
                 cmtData = json[1];
             }else {

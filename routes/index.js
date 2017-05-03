@@ -36,6 +36,9 @@ router.get('/about', function(req, res) {
 
 // statistic
 router.get('/statis', statis.index);
+router.get('/statistics/month/:dmonth', statis.statisMonth);
+router.get('/statistics/year/:dyaer', statis.statisYear);
+
 // statistic api
 router.get('/api-statis/month/:dmonth', statis.searchByDate);
 router.get('/api-statis/year/:dyear', statis.searchByDate);

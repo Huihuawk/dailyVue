@@ -35,7 +35,7 @@
             <div class="col-md-12">
                 <div class="panel panel-body panel-head">
                     <div class="widget">
-                        <h4 class="title">年数据统计</h4>
+                        <h4 class="title">年统计</h4>
                         <div class="content community">
                             <div id="shut-cuts"></div>
                         </div>
@@ -47,37 +47,71 @@
             <div class="panel-content">
                 <div class="col-md-4">
                     <div class="panel panel-body panel-year">
-                        <a href="#">2013</a>
-                        <div class="pie" id="y2013"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-body panel-year">
-                        <a href="#">2014</a>
-                        <div class="pie" id="y2014"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-body panel-year">
-                        <a href="#">2015</a>
-                        <div class="pie" id="y2015"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-body panel-year">
-                        <a href="#">2016</a>
-                        <div class="pie" id="y2016"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-body panel-year">
-                        <a href="#">2017</a>
+                        <a href="/statistics/year/2017">2017</a>
                         <div class="pie" id="y2017"></div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="panel panel-body panel-year">
-                        <h3>搜索查看月统计</h3>
+                        <a href="/statistics/year/2016">2016</a>
+                        <div class="pie" id="y2016"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-body panel-year">
+                        <a href="/statistics/year/2015">2015</a>
+                        <div class="pie" id="y2015"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-body panel-year">
+                        <a href="/statistics/year/2014">2014</a>
+                        <div class="pie" id="y2014"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-body panel-year">
+                        <a href="/statistics/year/2013">2013</a>
+                        <div class="pie" id="y2013"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-body search">
+                        <div class="widget">
+                            <h4 class="title">月统计</h4>
+                            <div class="content community">
+                                <div class="dsc-text">
+                                    <p>搜索查看详细月统计</p>
+                                    <a class="old-data">查看最早月数据2013年5月</a>
+                                </div>
+                                <div class="search-body">
+                                    <select name="year" id="syear">
+                                        <option value="2013">2013</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2017" selected>2017</option>
+                                    </select>
+                                    <select name="month" id="smonth">
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <button class="btn btn-default btn-block" id="submit">Search</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,12 +136,22 @@
                 $('#back-to-top').fadeOut();
             }
         });
-        $('#back-to-top').on('click', function (e) {
-            e.preventDefault();
-            $('html, body').animate({scrollTop: 0}, 1000);
-            return false;
-        });
     }
+    $('#back-to-top').click(function (e) {
+        e.preventDefault();
+        $('html, body').animate({scrollTop: 0}, 1000);
+        return false;
+    });
+    $("#submit").click(function(){
+        const syear = $('#syear').val();
+        const smonth = $('#smonth').val();
+        const dmonth = syear + smonth;
+        if (parseInt(syear + smonth) >= 201305){
+            window.location.href = "/statistics/month/" + dmonth;
+        } else {
+            alert("最早的数据统计在2013年5月，请选择正确的月份。")
+        }
+    });
     $(document).ready(backToTop());
 </script>
 <%- include("./common/footer.ejs") %>

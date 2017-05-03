@@ -19,3 +19,30 @@
   font-weight: bold;
   margin-left: 15px;
 }
+.search {
+  height: 229px;
+}
+.search .search-body {
+  margin-bottom: 15px;
+}
+.search .search-body select {
+  width: 47%;
+  height: 30px;
+}
+.search .search-body #syear {
+  margin-right: 15px;
+}
+.search .dsc-text {
+  margin-bottom: 15px;
+}
+.search .dsc-text p {
+  font-size: 16px;
+  color: #666666;
+}
+.search .old-data {
+  text-align: center;
+  font-weight: normal;
+  color: #999;
+  font-size: 14px;
+  margin-left: 0;
+}

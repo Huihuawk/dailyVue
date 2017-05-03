@@ -27,7 +27,10 @@ const renderCharts = () => {
         },
         toolbox: {
             feature: {
-                saveAsImage: {}
+                dataView:{show:true},
+                magicType: {show: true, type: ['line', 'bar','stack', 'tiled']},
+                restore: {show: true},
+                saveAsImage: {show: true}
             }
         },
         xAxis: {

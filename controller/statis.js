@@ -72,6 +72,12 @@ module.exports = {
     index: function (req, res) {
         res.render('statis', {title: 'Statistic'})
     },
+    statisMonth: function (req, res) {
+        res.render('statis-month', {title: 'Statistic'})
+    },
+    statisYear: function (req, res) {
+        res.render('statis-year', {title: 'Statistic'})
+    },
 
     // 按日期查询
     searchByDate: function (req, res) {

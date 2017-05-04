@@ -1,17 +1,16 @@
 import echarts from 'echarts';
 
-// 基于准备好的dom，初始化echarts实例
 const $ = document.querySelector.bind(document);
-// 绘制图表
 
 const renderCharts = () => {
+    // 基于准备好的dom，初始化echarts实例
     const shutCuts = echarts.init($('#shut-cuts'));
     const y2013 = echarts.init($('#y2013'));
     const y2014 = echarts.init($('#y2014'));
     const y2015 = echarts.init($('#y2015'));
     const y2016 = echarts.init($('#y2016'));
     const y2017 = echarts.init($('#y2017'));
-
+// 绘制图表
     shutCuts.setOption({
         tooltip: {
             trigger: 'axis'
@@ -267,6 +266,6 @@ const renderCharts = () => {
             }
         ]
     })
-}
+};
 
 renderCharts();

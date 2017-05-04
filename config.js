@@ -28,9 +28,9 @@ module.exports = {
     spider: {
         gogo: true,
         openTask: false,
-        start: '20170426',
-        end: '20170418',
-        interval: 20,
+        start: '20170417',
+        end: '20170302',
+        interval: 5,
     },
     fe: {
         developing: true

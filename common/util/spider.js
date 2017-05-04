@@ -77,7 +77,7 @@ const Spider = {
             }
             Promise.all(promiseAll).then(function () {
                 dateCalculator.now(date);
-                logger.info('day history data over @: ' + dateCalculator.before());
+                logger.info(new Date() +'day history data over @: ' + dateCalculator.before());
                 return Promise.resolve('day history data over @: ' + dateCalculator.before());
             }).catch(function (err) {
                 console.log('get ' + hDate + ' data error: ', err);

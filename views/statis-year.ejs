@@ -25,32 +25,36 @@
             <div class="col-md-12">
                 <div class="panel panel-body panel-head">
                     <div class="widget">
-                        <h4 class="title">年统计</h4>
+                        <h4 class="title"><span id="dyear"><%= year %></span>年统计</h4>
                         <div class="content community">
-                            <div class="year-cuts" id=""></div>
+                            <div class="year-cuts" id="sum-all"></div>
                         </div>
                     </div>
                 </div>
                 <div class="panel panel-body panel-head">
                     <div class="col-md-2 most-star">
-                        <p class="sum">8144051</p>
+                        <p class="sum star" id="sum-star">8144051</p>
                         <p class="decsum">全年点赞总次数</p>
                     </div>
                     <div class="col-md-10 most-star-content">
                         <span>年度获赞最多:</span>
-                        <a>[17408] 从英语渣变成英语霸，有 5 步路要走 - </a>
-                        <a>[20160312]</a>
+                        <span id="max-year-star">
+                            <a>[17408] 从英语渣变成英语霸，有 5 步路要走 - </a>
+                            <a>[20160312]</a>
+                        </span>
                     </div>
                 </div>
                 <div class="panel panel-body panel-foot">
                     <div class="col-md-2 most-star">
-                        <p class="sum">600888</p>
+                        <p class="sum comment" id="sum-cmt">600888</p>
                         <p class="decsum">全年评论总次数</p>
                     </div>
                     <div class="col-md-10 most-star-content">
                         <span>年度获评最多:</span>
-                        <a>[2077] 深夜惊奇 · 要穿内衣 - </a>
-                        <a>[20160601]</a>
+                        <span id="max-year-cmt">
+                            <a>[2077] 深夜惊奇 · 要穿内衣 - </a>
+                            <a>[20160601]</a>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -61,7 +65,7 @@
                     <div class="widget">
                         <h4 class="title">点赞统计</h4>
                         <div class="content community">
-                            <div class="href-cuts" id=""></div>
+                            <div class="href-cuts" id="top-star"></div>
                         </div>
                     </div>
                 </div>
@@ -71,7 +75,7 @@
                     <div class="widget">
                         <h4 class="title">评论统计</h4>
                         <div class="content community">
-                            <div class="href-cuts" id=""></div>
+                            <div class="href-cuts" id="top-cmt"></div>
                         </div>
                     </div>
                 </div>
@@ -81,13 +85,13 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>月份</th>
-                            <th>点赞</th>
-                            <th>文章</th>
-                            <th>日期</th>
+                            <th>Month</th>
+                            <th>Star</th>
+                            <th>Article</th>
+                            <th>Date</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="star-articles">
                         <tr>
                             <th scope="row">1</th>
                             <td>123</td>
@@ -115,13 +119,13 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>月份</th>
-                            <th>评论</th>
-                            <th>文章</th>
-                            <th>日期</th>
+                            <th>Month</th>
+                            <th>Comment</th>
+                            <th>Article</th>
+                            <th>Date</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="cmt-articles">
                         <tr>
                             <th scope="row">1</th>
                             <td>123</td>
@@ -152,30 +156,26 @@
                         <h4 class="title">年度人气文章</h4>
                         <div class="content community">
                             <table class="table table-hover">
-                                <caption>点赞大于10k - [0]</caption>
+                                <caption>点赞大于10k - <span id="ten-star">[0]</span></caption>
                                 <thead>
                                 <tr>
-                                    <th>月份</th>
-                                    <th>评论</th>
-                                    <th>文章</th>
-                                    <th>日期</th>
+                                    <th width="120">Star</th>
+                                    <th>Article</th>
+                                    <th>Date</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="ten-star-body">
                                 <tr>
-                                    <th scope="row">1</th>
                                     <td>123</td>
                                     <td>从英语渣变成英语霸，有 5 步路要走</td>
                                     <td>20160112</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">2</th>
                                     <td>321</td>
                                     <td>从英语渣变成英语霸，有 5 步路要走</td>
                                     <td>20160203</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">3</th>
                                     <td>222</td>
                                     <td>the 从英语渣变成英语霸，有 5 步路要走</td>
                                     <td>20160321</td>
@@ -184,30 +184,26 @@
                             </table>
                             <div class="headline"></div>
                             <table class="table table-hover">
-                                <caption>点赞大于20k - [0]</caption>
+                                <caption>点赞大于20k - <span id="twe-star">[0]</span></caption>
                                 <thead>
                                 <tr>
-                                    <th>月份</th>
-                                    <th>评论</th>
-                                    <th>文章</th>
-                                    <th>日期</th>
+                                    <th width="120">Star</th>
+                                    <th>Article</th>
+                                    <th>Date</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="twe-star-body">
                                 <tr>
-                                    <th scope="row">1</th>
                                     <td>123</td>
                                     <td>从英语渣变成英语霸，有 5 步路要走</td>
                                     <td>20160112</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">2</th>
                                     <td>321</td>
                                     <td>从英语渣变成英语霸，有 5 步路要走</td>
                                     <td>20160203</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">3</th>
                                     <td>222</td>
                                     <td>the 从英语渣变成英语霸，有 5 步路要走</td>
                                     <td>20160321</td>
@@ -216,30 +212,26 @@
                             </table>
                             <div class="headline"></div>
                             <table class="table table-hover">
-                                <caption>评论大于1k - [0]</caption>
+                                <caption>评论大于1k - <span id="one-cmt">[0]</span></caption>
                                 <thead>
                                 <tr>
-                                    <th>月份</th>
-                                    <th>评论</th>
-                                    <th>文章</th>
-                                    <th>日期</th>
+                                    <th width="120">Comment</th>
+                                    <th>Article</th>
+                                    <th>Date</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="one-cmt-body">
                                 <tr>
-                                    <th scope="row">1</th>
                                     <td>123</td>
                                     <td>从英语渣变成英语霸，有 5 步路要走</td>
                                     <td>20160112</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">2</th>
                                     <td>321</td>
                                     <td>从英语渣变成英语霸，有 5 步路要走</td>
                                     <td>20160203</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">3</th>
                                     <td>222</td>
                                     <td>the 从英语渣变成英语霸，有 5 步路要走</td>
                                     <td>20160321</td>
@@ -256,7 +248,10 @@
 
 <a href="#" id="back-to-top" onclick="backToTop();"><i class="fa">↑</i></a>
 
+
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="/statis/vendor.js"></script>
+<script src="/statis/year.bundle.js"></script>
 
 <script>
     const backToTop = function () {

@@ -23,21 +23,21 @@ var yearData = function (data) {
             starArr.push(data[i]);
             monthArr.push(data[i].dmonth);
 
-            for (let m = 0; m < data[i].count.length; m++) {
-                var count = data[i].count(m);
+            for(var m=0,mLen=data[i].count.length; m<mLen; m++){
+                var count = data[i].count[m];
                 var idx = _.indexOf(data[i].count, count);
-                if (count > 9999 && count < 20000) {
+                if(count > 9999 && count < 20000){
                     sTenK.push({
                         count: count,
                         aid: data[i].aids[idx]
                     });
-                    aids.push(data[i].aids[idx]);
-                } else if (count > 19999) {
+                    aids.push(data[i].aids[idx])
+                }else if(count > 19999){
                     sTwentyK.push({
                         count: count,
                         aid: data[i].aids[idx]
                     });
-                    aids.push(data[i].aids[idx]);
+                    aids.push(data[i].aids[idx])
                 }
             }
         } else {
@@ -73,10 +73,10 @@ module.exports = {
         res.render('statis', {title: 'Statistic'})
     },
     statisMonth: function (req, res) {
-        res.render('statis-month', {title: 'Statistic'})
+        res.render('statis-month', {title: 'Month Statistic', month: req.params.dmonth})
     },
     statisYear: function (req, res) {
-        res.render('statis-year', {title: 'Statistic'})
+        res.render('statis-year', {title: 'Year Statistic', year: req.params.dyear})
     },
 
     // 按日期查询
@@ -111,7 +111,8 @@ module.exports = {
             } else {
                 res.json(d)
             }
-        }).catch(function () {
+        }).catch(function (err) {
+            console.log("err",err);
             res.json([])
         });
     },

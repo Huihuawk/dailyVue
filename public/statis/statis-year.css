@@ -29,10 +29,15 @@
 .most-star .sum {
   font-weight: bold;
   font-size: 26px;
-  color: #666666;
 }
 .most-star .sum:hover {
   font-size: 28px;
+}
+.most-star .star {
+  color: #48BE8A;
+}
+.most-star .comment {
+  color: #62A8EA;
 }
 .most-star .decsum {
   font-size: 14px;

@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const CONFIG = require('../config');
 const logger = require('log4js').getLogger('cheese');
 
 const CmtCountDAO = require('../common/db/models/cmtCount');
@@ -51,7 +50,7 @@ module.exports = {
                                 dmonth: dmonth,
                                 dyear: dmonth.substr(0, 4)
                             }).catch(function (err) {
-                                logger.error('statistic star error @dmonth: ' + dmonth);
+                                logger.error('statistic star save error @dmonth: ' + dmonth);
                             });
                             statisDAO.save({
                                 type: 'comments',
@@ -61,7 +60,7 @@ module.exports = {
                                 dmonth: dmonth,
                                 dyear: dmonth.substr(0, 4)
                             }).catch(function (err) {
-                                logger.error('statistic comments error @dmonth: ' + dmonth);
+                                logger.error('statistic comments save error @dmonth: ' + dmonth);
                             });
                         }).catch(function (err) {
                         logger.error('statistic error @dmonth: ' + dmonth);

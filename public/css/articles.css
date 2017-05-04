@@ -121,6 +121,9 @@
 .article article .content p {
   padding: 10px 0 0 0;
 }
+.article article .content a {
+  display: inline;
+}
 @media (max-width: 500px) {
   .article .img-wrap {
     height: 250px;

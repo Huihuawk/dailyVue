@@ -46,12 +46,12 @@
                 $('#back-to-top').fadeOut();
             }
         });
-        $('#back-to-top').on('click', function(e){
-            e.preventDefault();
-            $('html, body').animate({scrollTop : 0},1000);
-            return false;
-        });
     }
+    $('#back-to-top').click(function(e){
+        e.preventDefault();
+        $('html, body').animate({scrollTop : 0},1000);
+        return false;
+    });
     $(document).ready(backToTop());
 </script>
 <%- include("./common/footer.ejs") %>

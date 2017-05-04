@@ -40,6 +40,7 @@
   color: #666666;
 }
 .search .old-data {
+  cursor: pointer;
   text-align: center;
   font-weight: normal;
   color: #999;

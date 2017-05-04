@@ -1,3 +1,278 @@
 <%- include("./common/header.ejs") %>
-<h1>hello year!</h1>
+<link rel="stylesheet" href="/css/index/base.css">
+<link rel="stylesheet" href="/css/statis.css">
+<link rel="stylesheet" href="/statis/statis-year.css">
+
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="main-menu">
+                    <ul class="menu">
+                        <li class="eclogo"><img src="/image/eclogo.png" alt="eclogo"></li>
+                        <li style="float: right" role="presentation"><a href="/statis" target="_self">返回数据统计</a></li>
+                        <li style="float: right" role="presentation"><a href="/" target="_self">首页</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-body panel-head">
+                    <div class="widget">
+                        <h4 class="title">年统计</h4>
+                        <div class="content community">
+                            <div class="year-cuts" id=""></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-body panel-head">
+                    <div class="col-md-2 most-star">
+                        <p class="sum">8144051</p>
+                        <p class="decsum">全年点赞总次数</p>
+                    </div>
+                    <div class="col-md-10 most-star-content">
+                        <span>年度获赞最多:</span>
+                        <a>[17408] 从英语渣变成英语霸，有 5 步路要走 - </a>
+                        <a>[20160312]</a>
+                    </div>
+                </div>
+                <div class="panel panel-body panel-foot">
+                    <div class="col-md-2 most-star">
+                        <p class="sum">600888</p>
+                        <p class="decsum">全年评论总次数</p>
+                    </div>
+                    <div class="col-md-10 most-star-content">
+                        <span>年度获评最多:</span>
+                        <a>[2077] 深夜惊奇 · 要穿内衣 - </a>
+                        <a>[20160601]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-body panel-head">
+                    <div class="widget">
+                        <h4 class="title">点赞统计</h4>
+                        <div class="content community">
+                            <div class="href-cuts" id=""></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-body panel-head">
+                    <div class="widget">
+                        <h4 class="title">评论统计</h4>
+                        <div class="content community">
+                            <div class="href-cuts" id=""></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-body panel-foot">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>月份</th>
+                            <th>点赞</th>
+                            <th>文章</th>
+                            <th>日期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>123</td>
+                            <td>从英语渣变成英语霸，有 5 步路要走</td>
+                            <td>20160112</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>321</td>
+                            <td>从英语渣变成英语霸，有 5 步路要走</td>
+                            <td>20160203</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>222</td>
+                            <td>the 从英语渣变成英语霸，有 5 步路要走</td>
+                            <td>20160321</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-body panel-foot">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>月份</th>
+                            <th>评论</th>
+                            <th>文章</th>
+                            <th>日期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>123</td>
+                            <td>从英语渣变成英语霸，有 5 步路要走</td>
+                            <td>20160112</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>321</td>
+                            <td>从英语渣变成英语霸，有 5 步路要走</td>
+                            <td>20160203</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>222</td>
+                            <td>the 从英语渣变成英语霸，有 5 步路要走</td>
+                            <td>20160321</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-body panel-foot">
+                    <div class="widget">
+                        <h4 class="title">年度人气文章</h4>
+                        <div class="content community">
+                            <table class="table table-hover">
+                                <caption>点赞大于10k - [0]</caption>
+                                <thead>
+                                <tr>
+                                    <th>月份</th>
+                                    <th>评论</th>
+                                    <th>文章</th>
+                                    <th>日期</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>123</td>
+                                    <td>从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160112</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>321</td>
+                                    <td>从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160203</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>222</td>
+                                    <td>the 从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160321</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="headline"></div>
+                            <table class="table table-hover">
+                                <caption>点赞大于20k - [0]</caption>
+                                <thead>
+                                <tr>
+                                    <th>月份</th>
+                                    <th>评论</th>
+                                    <th>文章</th>
+                                    <th>日期</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>123</td>
+                                    <td>从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160112</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>321</td>
+                                    <td>从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160203</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>222</td>
+                                    <td>the 从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160321</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="headline"></div>
+                            <table class="table table-hover">
+                                <caption>评论大于1k - [0]</caption>
+                                <thead>
+                                <tr>
+                                    <th>月份</th>
+                                    <th>评论</th>
+                                    <th>文章</th>
+                                    <th>日期</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>123</td>
+                                    <td>从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160112</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>321</td>
+                                    <td>从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160203</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>222</td>
+                                    <td>the 从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160321</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<a href="#" id="back-to-top" onclick="backToTop();"><i class="fa">↑</i></a>
+
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+<script>
+    const backToTop = function () {
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 100) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+    }
+    $('#back-to-top').click(function (e) {
+        e.preventDefault();
+        $('html, body').animate({scrollTop: 0}, 1000);
+        return false;
+    });
+    $(document).ready(backToTop());
+</script>
 <%- include("./common/footer.ejs") %>

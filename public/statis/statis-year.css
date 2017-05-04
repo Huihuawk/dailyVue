@@ -1,0 +1,54 @@
+.year-cuts {
+  width: 1108px;
+  height: 260px;
+}
+.href-cuts {
+  height: 240px;
+}
+.panel-head {
+  margin-bottom: 10px;
+}
+.panel-foot {
+  margin-bottom: 20px;
+}
+.eclogo {
+  margin-top: 6px;
+  float: left;
+}
+.eclogo img {
+  height: 40px;
+}
+.most-star {
+  text-align: center;
+  border-right: 1px solid #999;
+  height: 64px;
+}
+.most-star p {
+  margin-bottom: 5px;
+}
+.most-star .sum {
+  font-weight: bold;
+  font-size: 26px;
+  color: #666666;
+}
+.most-star .sum:hover {
+  font-size: 28px;
+}
+.most-star .decsum {
+  font-size: 14px;
+  color: #888;
+}
+.most-star-content {
+  padding-left: 30px;
+  font-size: 18px;
+  color: #666666;
+  line-height: 60px;
+}
+.most-star-content a {
+  cursor: pointer;
+}
+.headline {
+  width: 1108px;
+  margin: 5px 0;
+  border-bottom: 4px solid #f6f6f6;
+}

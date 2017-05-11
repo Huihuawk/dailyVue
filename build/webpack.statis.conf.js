@@ -34,7 +34,7 @@ module.exports = {
     entry: {
         // app: ['webpack/hot/dev-server', path.join(__dirname, '../src/statis-month.statis')],
         yearAll: path.join(__dirname, '../src/years.js'),
-        // month: path.join(__dirname, '../src/statis-month.js'),
+        month: path.join(__dirname, '../src/statis-month.js'),
         year: path.join(__dirname, '../src/statis-year.js')
     },
     output: {

@@ -12,7 +12,6 @@ import DateCalc from '../common/util/date'
 
 
 const $ = document.querySelector.bind(document);
-const $Loading = $('.loading');
 const $prev = $('.l-prev');
 const $next = $('.l-next');
 const MonthData = $('#dmonth').innerHTML;
@@ -23,20 +22,33 @@ const date = new DateCalc(`${MonthData}01`);
 
 const renderCharts = (data, dmonth) => {
     const statisTop = echarts.init($('#star-comment'));
-    const statisSum = echarts.init($('#star-comment-sum'));
+    // const statisSum = echarts.init($('#star-comment-sum'));
     statisTop.setOption({
-        title: { text: dmonth+' 点赞、评论 TOP 10' },
         tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                crossStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true},
+                magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
         },
         legend: {
-            data:['点赞数','评论数'],
+            data: ['点赞数', '评论数'],
             x: 'center'
         },
         xAxis: [
             {
                 type: 'category',
-                data: ['1','2','3','4','5','6','7','8','9','10']
+                data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
             }
         ],
         yAxis: [
@@ -57,160 +69,151 @@ const renderCharts = (data, dmonth) => {
         ],
         series: [
             {
-                name:'点赞数',
-                type:'bar',
+                name: '点赞数',
+                type: 'bar',
                 itemStyle: {
                     normal: {
-                        color: '#4285f4'
+                        color: '#48BE8A'
                     }
                 },
                 data: starData.count
             },
             {
-                name:'评论数',
-                type:'line',
+                name: '评论数',
+                type: 'line',
                 yAxisIndex: 1,
                 itemStyle: {
                     normal: {
-                        color: '#f60'
+                        color: '#62A8EA'
                     },
-                },
-                lineStyle: {
-                    normal: {
-                        width: 5,
-                        shadowColor: 'rgba(255, 102, 0, 0.5)',
-                        shadowBlur: 5
-                    }
                 },
                 data: cmtData.count
             }
         ]
     });
 
-    statisSum.setOption({
-        title: { text: '当月点赞和评论总数' },
-        tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        legend: {
-            x: 'right',
-            data:['点赞总数','评论总数']
-        },
-        series: [
-            {
-                name:'用户互动',
-                type:'pie',
-                radius: ['50%', '70%'],
-                avoidLabelOverlap: false,
-                label: {
-                    normal: {
-                        show: false,
-                        position: 'center'
-                    },
-                    emphasis: {
-                        show: true,
-                        textStyle: {
-                            fontSize: '30',
-                            fontWeight: 'bold'
-                        }
-                    }
-                },
-                labelLine: {
-                    normal: {
-                        show: false
-                    }
-                },
-                data:[
-                    {
-                        value: starData.sum,
-                        name:'点赞总数',
-                        itemStyle: {
-                            normal: {
-                                color: '#4285f4'
-                            }
-                        },
-                    },
-                    {
-                        value: cmtData.sum,
-                        name:'评论总数',
-                        itemStyle: {
-                            normal: {
-                                color: '#f60'
-                            }
-                        },
-                    }
-                ]
-            }
-        ]
-    })
-}
+//     statisSum.setOption({
+//         title: {text: '当月点赞和评论总数'},
+//         tooltip: {
+//             trigger: 'item',
+//             formatter: "{a} <br/>{b}: {c} ({d}%)"
+//         },
+//         legend: {
+//             x: 'right',
+//             data: ['点赞总数', '评论总数']
+//         },
+//         series: [
+//             {
+//                 name: '用户互动',
+//                 type: 'pie',
+//                 radius: ['50%', '70%'],
+//                 avoidLabelOverlap: false,
+//                 label: {
+//                     normal: {
+//                         show: false,
+//                         position: 'center'
+//                     },
+//                     emphasis: {
+//                         show: true,
+//                         textStyle: {
+//                             fontSize: '30',
+//                             fontWeight: 'bold'
+//                         }
+//                     }
+//                 },
+//                 labelLine: {
+//                     normal: {
+//                         show: false
+//                     }
+//                 },
+//                 data: [
+//                     {
+//                         value: starData.sum,
+//                         name: '点赞总数',
+//                         itemStyle: {
+//                             normal: {
+//                                 color: '#48BE8A'
+//                             }
+//                         },
+//                     },
+//                     {
+//                         value: cmtData.sum,
+//                         name: '评论总数',
+//                         itemStyle: {
+//                             normal: {
+//                                 color: '#62A8EA'
+//                             }
+//                         },
+//                     }
+//                 ]
+//             }
+//         ]
+//     })
+};
 
 
 const renderArticles = (articles, type) => {
-    $prev.setAttribute('href',`/statistics/month/${date.beforeMonth()}`)
-    $prev.innerHTML = `查看 ${date.beforeMonth()} 数据统计`
-    $next.setAttribute('href',`/statistics/month/${date.afterMonth()}`)
-    $next.innerHTML = `查看 ${date.afterMonth()} 数据统计`
+    $prev.setAttribute('href', `/statistics/month/${date.beforeMonth()}`);
+    $prev.innerHTML = `查看 ${date.beforeMonth()} 数据统计`;
+    $next.setAttribute('href', `/statistics/month/${date.afterMonth()}`);
+    $next.innerHTML = `查看 ${date.afterMonth()} 数据统计`;
     let statisData = starData;
-    if(type === 'comment'){
+    if (type === 'comments') {
         statisData = cmtData;
     }
     statisData.article = [];
-    for(let j=0,length=statisData.aids.length;j<length;j++){
-        for(let i=0,len=articles.length;i<len;i++){
-            if(statisData.aids[j] === articles[i].id){
+    for (let j = 0, length = statisData.aids.length; j < length; j++) {
+        for (let i = 0, len = articles.length; i < len; i++) {
+            if (statisData.aids[j] === articles[i].id) {
                 statisData.article.push(articles[i])
             }
         }
     }
     let dom = '';
-    for(let i=0,len=statisData.article.length;i<len;i++){
-        dom += `<li><i>[${statisData.count[i]}]</i> <a href="/#/detail?aid=${statisData.article[i].id}">${statisData.article[i].title}</a> - <a href="/#/date?dtime=${statisData.article[i].dtime}">${statisData.article[i].dtime}</a></li>`
+    for (let i = 0, len = statisData.article.length; i < len; i++) {
+        dom += `<tr><td>${statisData.count[i]}</td> <td><a href="/#/detail?aid=${statisData.article[i].id}">${statisData.article[i].title}</a> </td><td> <a href="/#/date?dtime=${statisData.article[i].dtime}">${statisData.article[i].dtime}</a></td></tr>`
     }
-    if(type === 'comment'){
+    if (type === 'comments') {
         $('.comment-top').innerHTML = dom;
-    }else {
+    } else {
         $('.star-top').innerHTML = dom;
     }
 }
 const fetchArticles = (aids, type) => {
     fetch(`/api-statis/articles/${aids}`)
-        .then(function(response){
+        .then(function (response) {
             return response.json()
         })
-        .then(function(articles){
+        .then(function (articles) {
             renderArticles(articles, type);
         })
 }
 
 
 fetch(`/api-statis/month/${MonthData}`)
-    .then(function(response){
+    .then(function (response) {
         return response.json()
     })
-    .then(function(json){
-        if(json.length){
-            if(json[0].type === 'star'){
+    .then(function (json) {
+        if (json.length) {
+            if (json[0].type === 'star') {
                 starData = json[0];
                 cmtData = json[1];
-            }else {
+            } else {
                 starData = json[1];
                 cmtData = json[0];
             }
-            $Loading.classList.add('hide');
-            $('#sum-s').innerHTML = starData.sum;
-            $('#sum-c').innerHTML = cmtData.sum;
+            // $('#sum-s').innerHTML = starData.sum;
+            // $('#sum-c').innerHTML = cmtData.sum;
             // 填充总数
             fetchArticles(starData.aids, 'star');
-            fetchArticles(cmtData.aids, 'comment');
+            fetchArticles(cmtData.aids, 'comments');
             renderCharts(json, MonthData);
-        }else {
-            $Loading.classList.add('hide');
-            $('.app').innerHTML = '<h1>还没统计</h1>'
+        } else {
+            $('.month-cuts').innerHTML = '<h1>还没统计</h1>'
         }
     })
-    .catch(function(err){
-        // renderCharts([], MonthData);
-    })
+    .catch(function (err) {
+        console.log(err);
+    });
 

@@ -1,3 +1,136 @@
 <%- include("./common/header.ejs") %>
-<h1>hello month</h1>
+<link rel="stylesheet" href="/css/index/base.css">
+<link rel="stylesheet" href="/css/statis.css">
+<link rel="stylesheet" href="/statis/statis-month.css">
+
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="main-menu">
+                    <ul class="menu">
+                        <li class="eclogo"><img src="/image/eclogo.png" alt="eclogo"></li>
+                        <li style="float: right" role="presentation"><a href="/statis" target="_self">返回数据统计</a></li>
+                        <li style="float: right" role="presentation"><a href="/" target="_self">首页</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-body panel-head">
+                    <a href="#" class="l-prev" target="_self">查看</a>
+                    <a href="#" class="l-next" target="_self">查看</a>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-body panel-head">
+                    <div class="widget">
+                        <h4 class="title"><span id="dmonth"><%= month %></span> 月统计</h4>
+                        <div class="content community">
+                            <div class="month-cuts" id="star-comment"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-body panel-foot">
+                    <div class="widget">
+                        <h4 class="title">点赞TOP10</h4>
+                        <div class="content community">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th width="120">Star</th>
+                                    <th>Article</th>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody class="star-top">
+                                <tr>
+                                    <td>123</td>
+                                    <td>从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160112</td>
+                                </tr>
+                                <tr>
+                                    <td>321</td>
+                                    <td>从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160203</td>
+                                </tr>
+                                <tr>
+                                    <td>222</td>
+                                    <td>the 从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160321</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <h4 class="title">评论TOP10</h4>
+                        <div class="content community">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th width="120">Comment</th>
+                                    <th>Article</th>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody class="comment-top">
+                                <tr>
+                                    <td>123</td>
+                                    <td>从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160112</td>
+                                </tr>
+                                <tr>
+                                    <td>321</td>
+                                    <td>从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160203</td>
+                                </tr>
+                                <tr>
+                                    <td>222</td>
+                                    <td>the 从英语渣变成英语霸，有 5 步路要走</td>
+                                    <td>20160321</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<a href="#" id="back-to-top" onclick="backToTop();"><i class="fa">↑</i></a>
+
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="/statis/vendor.js"></script>
+<script src="/statis/month.bundle.js"></script>
+
+<script>
+    const backToTop = function () {
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 100) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+    }
+    $('#back-to-top').click(function (e) {
+        e.preventDefault();
+        $('html, body').animate({scrollTop: 0}, 1000);
+        return false;
+    });
+    $(document).ready(backToTop());
+</script>
 <%- include("./common/footer.ejs") %>

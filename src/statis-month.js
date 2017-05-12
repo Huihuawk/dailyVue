@@ -22,7 +22,7 @@ const date = new DateCalc(`${MonthData}01`);
 
 const renderCharts = (data, dmonth) => {
     const statisTop = echarts.init($('#star-comment'));
-    // const statisSum = echarts.init($('#star-comment-sum'));
+    const statisSum = echarts.init($('#star-comment-sum'));
     statisTop.setOption({
         tooltip: {
             trigger: 'axis',
@@ -92,63 +92,62 @@ const renderCharts = (data, dmonth) => {
         ]
     });
 
-//     statisSum.setOption({
-//         title: {text: '当月点赞和评论总数'},
-//         tooltip: {
-//             trigger: 'item',
-//             formatter: "{a} <br/>{b}: {c} ({d}%)"
-//         },
-//         legend: {
-//             x: 'right',
-//             data: ['点赞总数', '评论总数']
-//         },
-//         series: [
-//             {
-//                 name: '用户互动',
-//                 type: 'pie',
-//                 radius: ['50%', '70%'],
-//                 avoidLabelOverlap: false,
-//                 label: {
-//                     normal: {
-//                         show: false,
-//                         position: 'center'
-//                     },
-//                     emphasis: {
-//                         show: true,
-//                         textStyle: {
-//                             fontSize: '30',
-//                             fontWeight: 'bold'
-//                         }
-//                     }
-//                 },
-//                 labelLine: {
-//                     normal: {
-//                         show: false
-//                     }
-//                 },
-//                 data: [
-//                     {
-//                         value: starData.sum,
-//                         name: '点赞总数',
-//                         itemStyle: {
-//                             normal: {
-//                                 color: '#48BE8A'
-//                             }
-//                         },
-//                     },
-//                     {
-//                         value: cmtData.sum,
-//                         name: '评论总数',
-//                         itemStyle: {
-//                             normal: {
-//                                 color: '#62A8EA'
-//                             }
-//                         },
-//                     }
-//                 ]
-//             }
-//         ]
-//     })
+    statisSum.setOption({
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            x: 'center',
+            data: ['点赞总数', '评论总数']
+        },
+        series: [
+            {
+                name: '用户互动',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '26',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [
+                    {
+                        value: starData.sum,
+                        name: '点赞总数',
+                        itemStyle: {
+                            normal: {
+                                color: '#48BE8A'
+                            }
+                        },
+                    },
+                    {
+                        value: cmtData.sum,
+                        name: '评论总数',
+                        itemStyle: {
+                            normal: {
+                                color: '#62A8EA'
+                            }
+                        },
+                    }
+                ]
+            }
+        ]
+    })
 };
 
 

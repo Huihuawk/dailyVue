@@ -6,7 +6,11 @@
   height: 40px;
 }
 .month-cuts {
-  width: 1108px;
+  width: 700px;
+  height: 260px;
+}
+.month-sum-cuts {
+  width: 360px;
   height: 260px;
 }
 .panel-head {

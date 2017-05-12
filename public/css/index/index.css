@@ -16,6 +16,12 @@ li {
 .icon.like {
   background-image: url("../../image/favorites-filling.png");
 }
+.icon.date-close {
+  background-image: url("../../image/close.png");
+}
+.icon.date-pic {
+  background-image: url("../../image/date.png");
+}
 .loading {
   position: relative;
   display: block;

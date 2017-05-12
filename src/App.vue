@@ -34,16 +34,29 @@
                 </div>
                 <div class="col-sm-4 sidebar">
                     <div class="widget">
-                        <h4 class="title">Code</h4>
+                        <h4 class="title">历史文章</h4>
+                        <div class="content community">
+                            <p class="control-label">Date Picking</p>
+                            <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                <input class="form-control" size="16" type="text" value="2017-05-01" readonly>
+                                <span class="input-group-addon"><span class="icon date-close glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="icon date-pic glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input2" value="" /><br/>
+                            <button class="btn btn-default btn-block" id="day-pic">See the article</button>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <h4 class="title">代码仓库</h4>
                         <div class="content community">
                             <p>Power by Vue & Node.</p>
                             <a href="https://github.com/Huihuawk/dailyVue" class="btn btn-default btn-block">View on Github</a>
                         </div>
                     </div>
                     <div class="widget">
-                        <h4 class="title">Error Hanldling</h4>
+                        <h4 class="title">错误列表</h4>
                         <div class="content community">
-                            <p>Data error hanldling.</p>
+                            <p>数据存储错误列表</p>
                             <a href="/spider-error" class="btn btn-default btn-block">Error Hanldling</a>
                         </div>
                     </div>
@@ -84,4 +97,5 @@
 <style>
     @import "../public/css/index/base.css";
     @import "../public/css/index/index.css";
+    @import "../public/c/bootstrap-datetimepicker.css";
 </style>

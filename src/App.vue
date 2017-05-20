@@ -49,7 +49,7 @@
                     <div class="widget">
                         <h4 class="title">代码仓库</h4>
                         <div class="content community">
-                            <p>Power by Vue & Node.</p>
+                            <p>Power by Vue & Node</p>
                             <a href="https://github.com/Huihuawk/dailyVue" class="btn btn-default btn-block">View on Github</a>
                         </div>
                     </div>

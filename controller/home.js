@@ -38,11 +38,11 @@ var Home = {
             articleDAO.search({id: aid}).then(function (data) {
                 if (data.length) {
                     var result = data[0];
-                    var $ = cheerio.load(result.body, {decodeEntities: false});
-                    $('img').each(function (idx, item) {
-                        $(item).attr('src', 'http://ccforward.sinaapp.com/api/proxy.php?url=' + $(item).attr('src'))
-                    });
-                    result.body = $.root().html();
+                    // var $ = cheerio.load(result.body, {decodeEntities: false});
+                    // $('img').each(function (idx, item) {
+                    //     $(item).attr('src', 'http://ccforward.sinaapp.com/api/proxy.php?url=' + $(item).attr('src'))
+                    // });
+                    // result.body = $.root().html();
                 }
                 res.json(result)
             });

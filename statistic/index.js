@@ -42,6 +42,7 @@ module.exports = {
                                 countCmt.push(sortComment[c].comments);
                                 aidsCmt.push(sortComment[c].aid);
                             }
+                            logger.info('statistic save successfully @dmonth: ' + dmonth);
                             statisDAO.save({
                                 type: 'star',
                                 sum: starsSum,
@@ -49,7 +50,7 @@ module.exports = {
                                 aids: starsAids,
                                 dmonth: dmonth,
                                 dyear: dmonth.substr(0, 4)
-                            }).catch(function (err) {
+                        }).catch(function (err) {
                                 logger.error('statistic star save error @dmonth: ' + dmonth);
                             });
                             statisDAO.save({

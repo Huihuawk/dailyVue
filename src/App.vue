@@ -53,13 +53,6 @@
                             <a href="https://github.com/Huihuawk/dailyVue" class="btn btn-default btn-block">View on Github</a>
                         </div>
                     </div>
-                    <div class="widget">
-                        <h4 class="title">错误列表</h4>
-                        <div class="content community">
-                            <p>数据存储错误列表</p>
-                            <a href="/spider-error" class="btn btn-default btn-block">Error Hanldling</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>

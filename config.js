@@ -28,8 +28,8 @@ module.exports = {
     spider: {
         gogo: true,
         openTask: false,
-        start: '20160301',
-        end: '20160201',
+        start: '20161001',
+        end: '20160301',
         interval: 5,
     },
     fe: {

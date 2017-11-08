@@ -26,10 +26,10 @@ module.exports = {
         isOpenningNode: true
     },
     spider: {
-        gogo: true,
+        gogo: false,
         openTask: false,
-        start: '20161001',
-        end: '20160301',
+        start: '20170531',
+        end: '20151231',
         interval: 5,
     },
     fe: {

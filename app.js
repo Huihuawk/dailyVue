@@ -51,7 +51,7 @@ if (CONFIG.spider.openTask) {
 
 //statistic
 var statistic = require('./statistic');
-statistic.start(['201705']);
+// statistic.start(['201601','201602','201603','201604','201605','201606','201607','201608','201609','201610','201611','201612','201701','201702','201703','201704','201705']);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

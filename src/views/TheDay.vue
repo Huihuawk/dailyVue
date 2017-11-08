@@ -55,7 +55,7 @@
             }
         },
         methods: {
-            fetch(){
+            fetch() {
                 const dtime = this.dtime;
                 axios.post(`/clear-error/${dtime}`)
             }

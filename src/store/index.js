@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
+	      img: '',
         loadingDay: false,
         date: new DateCalc().now(),
         latest: [],
@@ -22,7 +23,7 @@ const store = new Vuex.Store({
         let position = {
             x: 0,
             y: 0
-        }
+        };
         if (to.path === "/") {
             position.y = +sessionStorage.getItem('scrollTop') || 0
         }

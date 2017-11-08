@@ -1,6 +1,6 @@
 {
   "name": "daily-vue",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "start": "node ./bin/zh.js",
@@ -30,11 +30,11 @@
     "serve-favicon": "~2.4.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.3.1",
-    "vue": "^2.2.2",
+    "vue": "^2.4.1",
     "vue-lazy-image": "^1.1.0",
-    "vue-router": "^2.3.0",
-    "vuex": "2.0.0",
-    "vuex-router-sync": "^4.1.2",
+    "vue-router": "^2.7.0",
+    "vuex": "2.3.1",
+    "vuex-router-sync": "^4.2.0",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
@@ -68,8 +68,8 @@
     "url-loader": "^0.5.8",
     "vue-loader": "^11.1.4",
     "vue-style-loader": "^2.0.0",
-    "vue-template-compiler": "^2.2.4",
-    "webpack": "^2.2.1",
+    "vue-template-compiler": "^2.4.1",
+    "webpack": "^3.0.0",
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1",
